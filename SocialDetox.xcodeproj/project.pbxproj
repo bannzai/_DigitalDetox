@@ -10,7 +10,7 @@
 		2063FB0A295C6F6A00C7BFC9 /* Countdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB09295C6F6A00C7BFC9 /* Countdown.swift */; };
 		2063FB0D295C6FAE00C7BFC9 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB0C295C6FAE00C7BFC9 /* Clock.swift */; };
 		2063FB10295C76CA00C7BFC9 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB0F295C76CA00C7BFC9 /* Render.swift */; };
-		2063FB13295C7AF600C7BFC9 /* if.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB12295C7AF600C7BFC9 /* if.swift */; };
+		2063FB13295C7AF600C7BFC9 /* when.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB12295C7AF600C7BFC9 /* when.swift */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -29,7 +29,7 @@
 		2063FB09295C6F6A00C7BFC9 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
 		2063FB0C295C6FAE00C7BFC9 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		2063FB0F295C76CA00C7BFC9 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
-		2063FB12295C7AF600C7BFC9 /* if.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = if.swift; sourceTree = "<group>"; };
+		2063FB12295C7AF600C7BFC9 /* when.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = when.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		2063FB11295C7AE600C7BFC9 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				2063FB12295C7AF600C7BFC9 /* if.swift */,
+				2063FB12295C7AF600C7BFC9 /* when.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				2063FB10295C76CA00C7BFC9 /* Render.swift in Sources */,
 				20C83A6F295878E800DDB450 /* ContentView.swift in Sources */,
 				2063FB0A295C6F6A00C7BFC9 /* Countdown.swift in Sources */,
-				2063FB13295C7AF600C7BFC9 /* if.swift in Sources */,
+				2063FB13295C7AF600C7BFC9 /* when.swift in Sources */,
 				20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */,
 				2063FB0D295C6FAE00C7BFC9 /* Clock.swift in Sources */,
 			);
