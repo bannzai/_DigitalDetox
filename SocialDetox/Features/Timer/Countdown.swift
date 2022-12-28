@@ -31,14 +31,15 @@ struct Countdown: View {
 
     var body: some View {
       Text(String(format: "%02d", value))
-        .font(.system(size: 20, weight: .bold))
+        .font(.system(size: 28, weight: .bold))
     }
   }
 
   struct Colon: View {
     var body: some View {
       Text(":")
-        .font(.system(size: 20, weight: .bold))
+        .font(.system(size: 28, weight: .bold))
+        .alignmentGuide(VerticalAlignment.center) { $0[VerticalAlignment.center] + 3 }
     }
   }
 }
