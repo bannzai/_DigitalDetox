@@ -31,14 +31,14 @@ struct Countdown: View {
 
     var body: some View {
       Text(String(format: "%02d", value))
-        .font(.system(size: 28, weight: .semibold))
+        .font(.system(size: 20, weight: .bold))
     }
   }
 
   struct Colon: View {
     var body: some View {
       Text(":")
-        .font(.system(size: 28, weight: .semibold))
+        .font(.system(size: 20, weight: .bold))
     }
   }
 }
