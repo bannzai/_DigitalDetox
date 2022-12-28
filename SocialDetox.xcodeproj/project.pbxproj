@@ -75,7 +75,9 @@
 				20C83A6B295878E800DDB450 /* SocialDetox */,
 				20C83A6A295878E800DDB450 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		20C83A6A295878E800DDB450 /* Products */ = {
 			isa = PBXGroup;
