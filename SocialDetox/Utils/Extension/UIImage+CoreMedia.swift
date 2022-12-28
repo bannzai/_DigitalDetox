@@ -1,59 +1,39 @@
 import UIKit
 import CoreMedia
+import AVKit
+import AVFoundation
 
 extension UIImage {
-  var cmSampleBuffer: CMSampleBuffer? {
-    guard let jpegData = jpegData(compressionQuality: 1) else { return nil }
-    return sampleBufferFromJPEGData(jpegData)
-  }
-
-  private func sampleBufferFromJPEGData(_ jpegData: Data) -> CMSampleBuffer? {
-
-    guard let cgImage = cgImage else { return nil }
-    let rawPixelSize = CGSize(width: cgImage.width, height: cgImage.height)
-
-    var format: CMFormatDescription? = nil
-    let _ = CMVideoFormatDescriptionCreate(
-      allocator: kCFAllocatorDefault,
-      codecType: kCMVideoCodecType_JPEG,
-      width: Int32(rawPixelSize.width),
-      height: Int32(rawPixelSize.height),
-      extensions: nil,
-      formatDescriptionOut: &format)
-
-    do {
-      let cmBlockBuffer = try jpegData.toCMBlockBuffer()
-      var size = jpegData.count
-      var sampleBuffer: CMSampleBuffer? = nil
-      let nowTime = CMTime(seconds: CACurrentMediaTime(), preferredTimescale: 60)
-      let _1_60_s = CMTime(value: 1, timescale: 60)
-
-      var timingInfo: CMSampleTimingInfo = CMSampleTimingInfo(
-        duration: _1_60_s,
-        presentationTimeStamp: nowTime,
-        decodeTimeStamp: .invalid)
-
-      let _ = CMSampleBufferCreateReady(
-        allocator: kCFAllocatorDefault,
-        dataBuffer: cmBlockBuffer,
-        formatDescription: format,
-        sampleCount: 1,
-        sampleTimingEntryCount: 1,
-        sampleTimingArray: &timingInfo,
-        sampleSizeEntryCount: 1,
-        sampleSizeArray: &size,
-        sampleBufferOut: &sampleBuffer)
-
-      if sampleBuffer != nil {
-        return sampleBuffer
-
-      } else {
-        print("sampleBuffer is nil")
-        return nil
-      }
-    } catch {
-      print("error ugh ", error)
+  func sampleBuffer() throws -> CMSampleBuffer? {
+    guard let cgImage else {
       return nil
     }
+    let size = (width: Int(cgImage.width), height: Int(cgImage.height))
+
+    var pixelBuffer: CVPixelBuffer?
+    guard CVPixelBufferCreate(kCFAllocatorDefault, size.width, size.height, kCVPixelFormatType_32ARGB , nil, &pixelBuffer) == kCVReturnSuccess, let pixelBuffer else {
+      return nil
+    }
+    CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
+    let baseAddr = CVPixelBufferGetBaseAddress(pixelBuffer)
+    let context = CGContext(
+      data: baseAddr,
+      width: size.width,
+      height: size.height,
+      bitsPerComponent: 8,
+      bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer),
+      space: CGColorSpaceCreateDeviceRGB(),
+      bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
+    )
+    context?.draw(cgImage, in: .init(origin: .zero, size: .init(width: cgImage.width, height: cgImage.height)))
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
+
+    let videoFormatDescription = try CMVideoFormatDescription(videoCodecType: .jpeg, width: size.width, height: size.height)
+    let timingInfo = CMSampleTimingInfo(
+      duration: CMTime(value: 1, timescale: 60),
+      presentationTimeStamp: CMTime(seconds: CACurrentMediaTime(), preferredTimescale: 60),
+      decodeTimeStamp: .invalid)
+    return try CMSampleBuffer(imageBuffer: pixelBuffer, formatDescription: videoFormatDescription, sampleTiming: timingInfo)
   }
 }
+
