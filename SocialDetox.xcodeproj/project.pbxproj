@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2063FB0A295C6F6A00C7BFC9 /* PictureInPicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB09295C6F6A00C7BFC9 /* PictureInPicture.swift */; };
+		2063FB0D295C6FAE00C7BFC9 /* Now.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB0C295C6FAE00C7BFC9 /* Now.swift */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2063FB09295C6F6A00C7BFC9 /* PictureInPicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureInPicture.swift; sourceTree = "<group>"; };
+		2063FB0C295C6FAE00C7BFC9 /* Now.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Now.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +52,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2063FB07295C6F4000C7BFC9 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				2063FB0B295C6FA100C7BFC9 /* Now */,
+				2063FB08295C6F5D00C7BFC9 /* PinP */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		2063FB08295C6F5D00C7BFC9 /* PinP */ = {
+			isa = PBXGroup;
+			children = (
+				2063FB09295C6F6A00C7BFC9 /* PictureInPicture.swift */,
+			);
+			path = PinP;
+			sourceTree = "<group>";
+		};
+		2063FB0B295C6FA100C7BFC9 /* Now */ = {
+			isa = PBXGroup;
+			children = (
+				2063FB0C295C6FAE00C7BFC9 /* Now.swift */,
+			);
+			path = Now;
+			sourceTree = "<group>";
+		};
 		20C83A60295878E800DDB450 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +96,7 @@
 		20C83A6B295878E800DDB450 /* SocialDetox */ = {
 			isa = PBXGroup;
 			children = (
+				2063FB07295C6F4000C7BFC9 /* Features */,
 				20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */,
 				20C83A6E295878E800DDB450 /* ContentView.swift */,
 				20C83A70295878E900DDB450 /* Assets.xcassets */,
@@ -167,7 +197,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				20C83A6F295878E800DDB450 /* ContentView.swift in Sources */,
+				2063FB0A295C6F6A00C7BFC9 /* PictureInPicture.swift in Sources */,
 				20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */,
+				2063FB0D295C6FAE00C7BFC9 /* Now.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
