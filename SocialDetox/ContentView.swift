@@ -18,11 +18,13 @@ struct ContentView: View {
     VStack {
       countdown
         .onChange(of: clock.now) { _ in
-          if pip.isPlaying, let remainingTime {
-            self.remainingTime = remainingTime - 1
-          }
+          if pip.isActivated {
+            if pip.isPlaying, let remainingTime {
+              self.remainingTime = remainingTime - 1
+            }
 
-          pip.enqueue(content: countdown, displayScale: displayScale)
+            pip.enqueue(content: countdown, displayScale: displayScale)
+          }
         }
 
       if pip.isActivated {
