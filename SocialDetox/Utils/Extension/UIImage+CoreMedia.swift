@@ -1,17 +1,15 @@
 import UIKit
 import CoreMedia
+import CoreGraphics
 import AVKit
 import AVFoundation
 
-extension UIImage {
+extension CGImage {
   func sampleBuffer(displayScale: CGFloat) throws -> CMSampleBuffer? {
-    guard let cgImage else {
-      return nil
-    }
     func scaled(_ value: Int) -> Int {
       Int(CGFloat(value) * displayScale)
     }
-    let size = (width: scaled(cgImage.width), height: scaled(cgImage.height))
+    let size = (width: scaled(width), height: scaled(height))
 
     var pixelBuffer: CVPixelBuffer?
     let pixelBufferCreateStatus = CVPixelBufferCreate(
@@ -44,7 +42,7 @@ extension UIImage {
         space: CGColorSpaceCreateDeviceRGB(),
         bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
       )
-      context?.draw(cgImage, in: .init(origin: .zero, size: .init(width: cgImage.width, height: cgImage.height)))
+      context?.draw(self, in: .init(origin: .zero, size: .init(width: width, height: height)))
     }
     drawToPixelBuffer()
 
