@@ -34,6 +34,7 @@
 		2063FB12295C7AF600C7BFC9 /* When.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = When.swift; sourceTree = "<group>"; };
 		2063FB14295C895A00C7BFC9 /* UIImage+CoreMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CoreMedia.swift"; sourceTree = "<group>"; };
 		2063FB19295D875E00C7BFC9 /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		2063FB1B295E5A8B00C7BFC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		20C83A6B295878E800DDB450 /* SocialDetox */ = {
 			isa = PBXGroup;
 			children = (
+				2063FB1B295E5A8B00C7BFC9 /* Info.plist */,
 				2063FB11295C7AE600C7BFC9 /* Utils */,
 				2063FB07295C6F4000C7BFC9 /* Features */,
 				20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */,
@@ -381,6 +383,7 @@
 				DEVELOPMENT_TEAM = TQPN82UBBY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SocialDetox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,6 +413,7 @@
 				DEVELOPMENT_TEAM = TQPN82UBBY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SocialDetox/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
