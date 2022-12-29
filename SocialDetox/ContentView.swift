@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
+  @State var goal: Date? = .now.addingTimeInterval(60 * 30)
+
+  var body: some View {
         VStack {
-          Countdown(goal: nil)
+          Countdown(goal: goal)
+            .rendered(id: goal) { image in
+              let buffer = try? image?.sampleBuffer()
+              dump(buffer)
+            }
           Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
