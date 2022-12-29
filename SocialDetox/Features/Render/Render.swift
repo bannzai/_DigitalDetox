@@ -1,10 +1,10 @@
 import SwiftUI
 
-@MainActor func render<V: View>(content: V, displayScale: CGFloat, size: CGSize) -> UIImage? {
+@MainActor func render<V: View>(content: V, displayScale: CGFloat, size: CGSize) -> CGImage? {
   let renderer = ImageRenderer(content: content)
   renderer.scale = displayScale
   renderer.proposedSize = .init(size)
-  return renderer.uiImage
+  return renderer.cgImage
 }
 
 // NOTE: https://note.com/reality_eng/n/n662347337553
