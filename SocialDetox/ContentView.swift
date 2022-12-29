@@ -15,8 +15,7 @@ struct ContentView: View {
   var body: some View {
     VStack {
       Countdown(goal: goal)
-        .onChange(of: clock.now) { _ in
-          let image = render(content: Countdown(goal: goal), displayScale: displayScale, size: CGSize(width: UIScreen.main.bounds.width, height: 60))
+        .rendered(id: clock.now, size: .init(width: UIScreen.main.bounds.width, height: 60)) { image in
           do {
             let buffer = try image?.sampleBuffer(displayScale: displayScale)
             dump(buffer)
