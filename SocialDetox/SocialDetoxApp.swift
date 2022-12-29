@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 @main
 struct SocialDetoxApp: App {
-    var body: some Scene {
+  init() {
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .moviePlayback)
+      try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+      print("AudioSession throw error: \(error)")
+    }
+  }
+  var body: some Scene {
         WindowGroup {
             ContentView()
         }
