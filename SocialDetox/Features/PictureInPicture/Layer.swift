@@ -1,8 +1,9 @@
 import AVKit
 import AVFoundation
 import Combine
+import SwiftUI
 
-class A: NSObject, ObservableObject {
+class PiPProxy: NSObject, ObservableObject {
   enum Progress {
     case willStart
     case didStart
@@ -11,18 +12,15 @@ class A: NSObject, ObservableObject {
   }
 
   @Published var progress: Progress?
-  @Published var error: Error?
+  @Published var launchError: Error?
+  @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 80)
+  @Published var isPlaying = false
 
-  let start = PassthroughSubject<Void, Never>()
-  let started = PassthroughSubject<Void, Never>()
-
-  var pictureInPictureController: AVPictureInPictureController!
-  var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
+  private var pictureInPictureController: AVPictureInPictureController!
+  private var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
     pictureInPictureController.contentSource!.sampleBufferDisplayLayer!
   }
-
   private var observation: NSKeyValueObservation?
-
 
   override init() {
     super.init()
@@ -46,72 +44,79 @@ class A: NSObject, ObservableObject {
       pictureInPictureController.startPictureInPicture()
     }
   }
-}
 
-extension A: AVPictureInPictureControllerDelegate {
-  // NOTE: Picture in Pictureの開始されることを通知
-  func pictureInPictureControllerWillStartPictureInPicture(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) {}
-  // NOTE: Picture in Pictureが開始されたこと通知
-  func pictureInPictureControllerDidStartPictureInPicture(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) {}
-  // NOTE: Picture in Pictureの起動に失敗したことを通知
-  func pictureInPictureController(
-    _ pictureInPictureController: AVPictureInPictureController,
-    failedToStartPictureInPictureWithError error: Error
-  ) {}
-  // NOTE: Picture in Pictureが停止することを通知
-  func pictureInPictureControllerWillStopPictureInPicture(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) {}
-  // NOTE: Picture in Pictureが停止したことを通知
-  func pictureInPictureControllerDidStopPictureInPicture(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) {}
-}
+  @MainActor func enqueue<V: View>(content: V, displayScale: CGFloat) {
+    resetBuffer()
 
+    let image = viewToCGImage(
+      content: content.frame(
+        width: size.width,
+        height: size.height),
+      displayScale: displayScale,
+      size: size
+    )
 
-extension A: AVPictureInPictureSampleBufferPlaybackDelegate {
-  func pictureInPictureController(
-    _ pictureInPictureController: AVPictureInPictureController,
-    setPlaying playing: Bool
-  ) {
-//    pause.toggle()
-//    dateLabel.text = "pause: \(pause)"
-//    if let sampleBuffer = dateLabel.toCMSampleBuffer() {
-//      bufferDisplayLayer.enqueue(sampleBuffer)
-//    }
+    do {
+      if let sampleBuffer = try image?.sampleBuffer(displayScale: displayScale) {
+        sampleBufferDisplayLayer.enqueue(sampleBuffer)
+        dump(sampleBuffer)
+      }
+    } catch {
+      print(error)
+    }
   }
 
-  func pictureInPictureControllerTimeRangeForPlayback(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) -> CMTimeRange {
+  private func resetBuffer() {
+    if sampleBufferDisplayLayer.status == .failed {
+      pictureInPictureController.invalidatePlaybackState()
+      sampleBufferDisplayLayer.flush()
+    }
+  }
+}
+
+extension PiPProxy: AVPictureInPictureControllerDelegate {
+  func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+    progress = .willStart
+  }
+
+  func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+    progress = .didStart
+  }
+
+  func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, failedToStartPictureInPictureWithError error: Error) {
+    launchError = error
+  }
+
+  func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+    progress = .willStop
+  }
+
+  func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
+    progress = .didStop
+  }
+}
+
+
+extension PiPProxy: AVPictureInPictureSampleBufferPlaybackDelegate {
+  // NOTE: playing false means poused
+  func pictureInPictureController(_ : AVPictureInPictureController, setPlaying playing: Bool) {
+    isPlaying = playing
+  }
+
+  func pictureInPictureControllerTimeRangeForPlayback(_ pictureInPictureController: AVPictureInPictureController) -> CMTimeRange {
     return CMTimeRange(start: .negativeInfinity, end: .positiveInfinity)
   }
 
-  func pictureInPictureControllerIsPlaybackPaused(
-    _ pictureInPictureController: AVPictureInPictureController
-  ) -> Bool {
-    return false
+  func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {
+    isPlaying = false
+    return true
   }
 
-  func pictureInPictureController(
-    _ pictureInPictureController: AVPictureInPictureController,
-    didTransitionToRenderSize newRenderSize: CMVideoDimensions
-  ) {
-//    dateLabel.text = "w: \(newRenderSize.width) h: \(newRenderSize.height)"
-//    if let sampleBuffer = dateLabel.toCMSampleBuffer() {
-//      bufferDisplayLayer.enqueue(sampleBuffer)
-//    }
+  func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, didTransitionToRenderSize newRenderSize: CMVideoDimensions) {
+    size = .init(width: CGFloat(newRenderSize.width), height: CGFloat(newRenderSize.height))
   }
 
-  func pictureInPictureController(
-    _ pictureInPictureController: AVPictureInPictureController,
-    skipByInterval skipInterval: CMTime,
-    completion completionHandler: @escaping () -> Void
-  ) {
+  func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, skipByInterval skipInterval: CMTime, completion completionHandler: @escaping () -> Void) {
     completionHandler()
   }
 }
