@@ -4,17 +4,36 @@ import AVKit
 import AVFoundation
 
 extension UIImage {
-  func sampleBuffer() throws -> CMSampleBuffer? {
+  func sampleBuffer(displayScale: CGFloat) throws -> CMSampleBuffer? {
     guard let cgImage else {
       return nil
     }
-    let size = (width: Int(cgImage.width), height: Int(cgImage.height))
+    func scaled(_ value: Int) -> Int {
+      Int(CGFloat(value) * displayScale)
+    }
+    let size = (width: scaled(cgImage.width), height: scaled(cgImage.height))
 
     var pixelBuffer: CVPixelBuffer?
-    guard CVPixelBufferCreate(kCFAllocatorDefault, size.width, size.height, kCVPixelFormatType_32ARGB , nil, &pixelBuffer) == kCVReturnSuccess, let pixelBuffer else {
+    let pixelBufferCreateStatus = CVPixelBufferCreate(
+      kCFAllocatorDefault,
+      size.width,
+      size.height,
+      kCVPixelFormatType_32ARGB,
+      [
+        kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue!,
+        kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue!,
+        kCVPixelBufferIOSurfacePropertiesKey: [:] as CFDictionary,
+      ] as CFDictionary,
+      &pixelBuffer
+    )
+    guard pixelBufferCreateStatus == kCVReturnSuccess, let pixelBuffer else {
       return nil
     }
-    CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
+    CVPixelBufferLockBaseAddress(pixelBuffer, [])
+    defer {
+      CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
+    }
+
     let baseAddr = CVPixelBufferGetBaseAddress(pixelBuffer)
     let context = CGContext(
       data: baseAddr,
@@ -26,14 +45,18 @@ extension UIImage {
       bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
     )
     context?.draw(cgImage, in: .init(origin: .zero, size: .init(width: cgImage.width, height: cgImage.height)))
-    CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
 
-    let videoFormatDescription = try CMVideoFormatDescription(videoCodecType: .jpeg, width: size.width, height: size.height)
+    let videoFormatDescription = try CMVideoFormatDescription(imageBuffer: pixelBuffer)
     let timingInfo = CMSampleTimingInfo(
-      duration: CMTime(value: 1, timescale: 60),
-      presentationTimeStamp: CMTime(seconds: CACurrentMediaTime(), preferredTimescale: 60),
-      decodeTimeStamp: .invalid)
-    return try CMSampleBuffer(imageBuffer: pixelBuffer, formatDescription: videoFormatDescription, sampleTiming: timingInfo)
+      duration: .init(seconds: 1, preferredTimescale: 60),
+      presentationTimeStamp: .init(seconds: CACurrentMediaTime(), preferredTimescale: 60),
+      decodeTimeStamp: .init(seconds: CACurrentMediaTime(), preferredTimescale: 60)
+    )
+    return try CMSampleBuffer(
+      imageBuffer: pixelBuffer,
+      formatDescription: videoFormatDescription,
+      sampleTiming: timingInfo
+    )
   }
 }
 
