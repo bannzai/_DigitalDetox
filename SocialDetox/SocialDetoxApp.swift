@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AVFAudio
+import AVKit
 
 @main
 struct SocialDetoxApp: App {
@@ -25,8 +25,12 @@ struct SocialDetoxApp: App {
 
   var body: some Scene {
         WindowGroup {
+          if AVPictureInPictureController.isPictureInPictureSupported() {
             ContentView()
-            .environmentObject(pip)
+              .environmentObject(pip)
+          } else {
+            Text("Unsupported device")
+          }
         }
     }
 }
