@@ -7,6 +7,7 @@ import SwiftUI
   return renderer.uiImage
 }
 
+// NOTE: https://note.com/reality_eng/n/n662347337553
 @MainActor func makeImage(body: some View, size: CGSize) -> UIImage? {
   let imageRenderer = ImageRenderer(content: body)
   imageRenderer.scale = UIScreen.main.scale
