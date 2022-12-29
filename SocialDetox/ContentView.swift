@@ -16,6 +16,8 @@ struct ContentView: View {
     VStack {
       Countdown(remainingTime: remainingTime)
         .onChange(of: clock.now) { _ in
+          remainingTime -= 1
+          
           let image = viewToCGImage(content: Countdown(remainingTime: remainingTime).frame(height: 60), displayScale: displayScale, size: CGSize(width: UIScreen.main.bounds.width, height: 60))
           do {
             let buffer = try image?.sampleBuffer(displayScale: displayScale)
