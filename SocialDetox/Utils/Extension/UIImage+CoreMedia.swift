@@ -29,22 +29,24 @@ extension UIImage {
     guard pixelBufferCreateStatus == kCVReturnSuccess, let pixelBuffer else {
       return nil
     }
-    CVPixelBufferLockBaseAddress(pixelBuffer, [])
-    defer {
-      CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
+    func drawToPixelBuffer() {
+      CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
+      defer {
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
+      }
+      let baseAddr = CVPixelBufferGetBaseAddress(pixelBuffer)
+      let context = CGContext(
+        data: baseAddr,
+        width: size.width,
+        height: size.height,
+        bitsPerComponent: 8,
+        bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer),
+        space: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
+      )
+      context?.draw(cgImage, in: .init(origin: .zero, size: .init(width: cgImage.width, height: cgImage.height)))
     }
-
-    let baseAddr = CVPixelBufferGetBaseAddress(pixelBuffer)
-    let context = CGContext(
-      data: baseAddr,
-      width: size.width,
-      height: size.height,
-      bitsPerComponent: 8,
-      bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer),
-      space: CGColorSpaceCreateDeviceRGB(),
-      bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
-    )
-    context?.draw(cgImage, in: .init(origin: .zero, size: .init(width: cgImage.width, height: cgImage.height)))
+    drawToPixelBuffer()
 
     let videoFormatDescription = try CMVideoFormatDescription(imageBuffer: pixelBuffer)
     let timingInfo = CMSampleTimingInfo(
