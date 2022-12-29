@@ -10,13 +10,13 @@ import SwiftUI
 struct ContentView: View {
   @Environment(\.displayScale) var displayScale
   @Clock var clock
-  @State var goal: Date? = .now.addingTimeInterval(60 * 30)
+  @State var remainingTime: TimeInterval? = 60 * 30
 
   var body: some View {
     VStack {
-      Countdown(goal: goal)
+      Countdown(remainingTime: remainingTime)
         .onChange(of: clock.now) { _ in
-          let image = render(content: Countdown(goal: goal).frame(height: 60), displayScale: displayScale, size: CGSize(width: UIScreen.main.bounds.width, height: 60))
+          let image = render(content: Countdown(remainingTime: remainingTime).frame(height: 60), displayScale: displayScale, size: CGSize(width: UIScreen.main.bounds.width, height: 60))
           do {
             let buffer = try image?.sampleBuffer(displayScale: displayScale)
             dump(buffer)

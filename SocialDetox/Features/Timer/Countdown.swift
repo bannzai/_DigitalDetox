@@ -2,10 +2,11 @@ import SwiftUI
 
 struct Countdown: View {
   @Clock var clock
-  let goal: Date?
+
+  let remainingTime: TimeInterval?
 
   var body: some View {
-    let components = dateComponents()
+    let components = timeComponents()
 
     HStack(spacing: 10) {
       Number(value: components?.hour)
@@ -16,12 +17,15 @@ struct Countdown: View {
     }
   }
 
-  func dateComponents() -> DateComponents? {
-    guard let goal else {
+  func timeComponents() -> (hour: Int, minute: Int, second: Int)? {
+    guard let remainingTime else {
       return nil
     }
 
-    return Calendar.autoupdatingCurrent.dateComponents([.hour, .minute, .second], from: clock.now, to: goal)
+    let second = Int(remainingTime.truncatingRemainder(dividingBy: 60))
+    let minute = Int((remainingTime / 60).truncatingRemainder(dividingBy: 60))
+    let hour = Int(remainingTime / 60 * 60)
+    return (hour, minute, second)
   }
 
   struct Number: View {
@@ -46,8 +50,8 @@ struct Countdown: View {
 struct Countdown_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      Countdown(goal: .now.addingTimeInterval(60 * 30))
-      Countdown(goal: nil)
+      Countdown(remainingTime: 60 * 30)
+      Countdown(remainingTime: nil)
     }
   }
 }
