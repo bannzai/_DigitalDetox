@@ -3,7 +3,7 @@ import AVFoundation
 import Combine
 import SwiftUI
 
-class PiPProxy: NSObject, ObservableObject {
+class PiP: NSObject, ObservableObject {
   enum Progress {
     case willStart
     case didStart
@@ -15,6 +15,7 @@ class PiPProxy: NSObject, ObservableObject {
   @Published var launchError: Error?
   @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 80)
   @Published var isPlaying = false
+  var isActivated: Bool { pictureInPictureController.isPictureInPictureActive }
 
   private var pictureInPictureController: AVPictureInPictureController!
   private var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
@@ -37,12 +38,14 @@ class PiPProxy: NSObject, ObservableObject {
     }
   }
 
-  func toggle() {
-    if pictureInPictureController.isPictureInPictureActive {
-      pictureInPictureController.stopPictureInPicture()
-    } else {
+  func start() {
       pictureInPictureController.startPictureInPicture()
-    }
+  }
+
+  func stop() {
+      pictureInPictureController.stopPictureInPicture()
+      progress = nil
+      isPlaying = false
   }
 
   @MainActor func enqueue<V: View>(content: V, displayScale: CGFloat) {
@@ -59,10 +62,11 @@ class PiPProxy: NSObject, ObservableObject {
     do {
       if let sampleBuffer = try image?.sampleBuffer(displayScale: displayScale) {
         sampleBufferDisplayLayer.enqueue(sampleBuffer)
-        dump(sampleBuffer)
+        debugPrint(sampleBuffer)
       }
     } catch {
-      print(error)
+      // Ignore error
+      debugPrint(error)
     }
   }
 
@@ -74,7 +78,7 @@ class PiPProxy: NSObject, ObservableObject {
   }
 }
 
-extension PiPProxy: AVPictureInPictureControllerDelegate {
+extension PiP: AVPictureInPictureControllerDelegate {
   func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
     progress = .willStart
   }
@@ -97,7 +101,7 @@ extension PiPProxy: AVPictureInPictureControllerDelegate {
 }
 
 
-extension PiPProxy: AVPictureInPictureSampleBufferPlaybackDelegate {
+extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   // NOTE: playing false means poused
   func pictureInPictureController(_ : AVPictureInPictureController, setPlaying playing: Bool) {
     isPlaying = playing

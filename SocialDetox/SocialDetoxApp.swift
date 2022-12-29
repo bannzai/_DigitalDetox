@@ -10,6 +10,8 @@ import AVFAudio
 
 @main
 struct SocialDetoxApp: App {
+  @StateObject var pip = PiP()
+
   init() {
     do {
       try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .moviePlayback)
@@ -18,9 +20,11 @@ struct SocialDetoxApp: App {
       print("AudioSession throw error: \(error)")
     }
   }
+
   var body: some Scene {
         WindowGroup {
             ContentView()
+            .environmentObject(pip)
         }
     }
 }

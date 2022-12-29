@@ -9,30 +9,39 @@ import SwiftUI
 
 struct ContentView: View {
   @Environment(\.displayScale) var displayScale
+  @EnvironmentObject var pip: PiP
   @Clock var clock
   @State var remainingTime: TimeInterval? = 60 * 30
 
   var body: some View {
+    let countdown = Countdown(remainingTime: remainingTime)
     VStack {
-      Countdown(remainingTime: remainingTime)
+      countdown
         .onChange(of: clock.now) { _ in
-          if let remainingTime {
+          if pip.isPlaying, let remainingTime {
             self.remainingTime = remainingTime - 1
           }
 
-          let image = viewToCGImage(content: Countdown(remainingTime: remainingTime).frame(height: 60), displayScale: displayScale, size: CGSize(width: UIScreen.main.bounds.width, height: 60))
-          do {
-            let buffer = try image?.sampleBuffer(displayScale: displayScale)
-            dump(buffer)
-          } catch {
-            print(error)
-          }
+          pip.enqueue(content: countdown, displayScale: displayScale)
         }
 
-      Image(systemName: "globe")
-        .imageScale(.large)
-        .foregroundColor(.accentColor)
-      Text("Hello, world!")
+      if pip.isActivated {
+        Button {
+          pip.stop()
+        } label: {
+          Image(systemName: "stop.fill")
+            .imageScale(.large)
+            .foregroundColor(.accentColor)
+        }
+      } else {
+        Button {
+          pip.start()
+        } label: {
+          Image(systemName: "play.fill")
+            .imageScale(.large)
+            .foregroundColor(.accentColor)
+        }
+      }
     }
     .padding()
   }
