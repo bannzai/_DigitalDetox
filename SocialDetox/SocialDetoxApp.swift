@@ -14,7 +14,9 @@ struct SocialDetoxApp: App {
 
   init() {
     do {
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .moviePlayback)
+      // Workaround for prevent warning to set defaultToSpeaker options.
+      // https://developer.apple.com/forums/thread/714598
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
       try AVAudioSession.sharedInstance().setActive(true)
     } catch {
       print("AudioSession throw error: \(error)")
