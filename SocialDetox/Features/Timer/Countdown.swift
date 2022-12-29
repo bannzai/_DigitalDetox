@@ -22,7 +22,7 @@ struct Countdown: View {
 
     let second = Int(remainingTime.truncatingRemainder(dividingBy: 60))
     let minute = Int((remainingTime / 60).truncatingRemainder(dividingBy: 60))
-    let hour = Int(remainingTime / 60 * 60)
+    let hour = Int(remainingTime / (60 * 60))
     return (hour, minute, second)
   }
 
