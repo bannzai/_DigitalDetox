@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct Countdown: View {
-  @Clock var clock
-
   let remainingTime: TimeInterval?
 
   var body: some View {
