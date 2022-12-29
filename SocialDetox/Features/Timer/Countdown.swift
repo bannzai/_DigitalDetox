@@ -2,36 +2,35 @@ import SwiftUI
 
 struct Countdown: View {
   @Clock var clock
-  let goal: Date
+  let goal: Date?
 
   var body: some View {
     let components = dateComponents()
 
     HStack(spacing: 10) {
-      if let hour = components?.hour {
-        Number(value: hour)
-        Colon()
-      }
-      if let minute = components?.minute {
-        Number(value: minute)
-        Colon()
-      }
-      if let second = components?.second {
-        Number(value: second)
-      }
+      Number(value: components?.hour)
+      Colon()
+      Number(value: components?.minute)
+      Colon()
+      Number(value: components?.second)
     }
   }
 
   func dateComponents() -> DateComponents? {
-    Calendar.autoupdatingCurrent.dateComponents([.hour, .minute, .second], from: clock.now, to: goal)
+    guard let goal else {
+      return nil
+    }
+
+    return Calendar.autoupdatingCurrent.dateComponents([.hour, .minute, .second], from: clock.now, to: goal)
   }
 
   struct Number: View {
-    let value: Int
+    let value: Int?
 
     var body: some View {
-      Text(String(format: "%02d", value))
+      Text(String(format: "%02d", value ?? 0))
         .font(.system(size: 28, weight: .bold))
+        .redacted(reason: value == nil ? .placeholder : [])
     }
   }
 
@@ -46,6 +45,9 @@ struct Countdown: View {
 
 struct Countdown_Previews: PreviewProvider {
   static var previews: some View {
-    Countdown(goal: .now.addingTimeInterval(60 * 30))
+    Group {
+      Countdown(goal: .now.addingTimeInterval(60 * 30))
+      Countdown(goal: nil)
+    }
   }
 }
