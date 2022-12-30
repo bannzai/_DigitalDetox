@@ -49,7 +49,6 @@ class PiP: NSObject, ObservableObject {
 
   func start() {
     pictureInPictureController.startPictureInPicture()
-    print(pictureInPictureController.contentSource?.sampleBufferDisplayLayer === sampleBufferDisplayLayer)
   }
 
   func stop() {
@@ -120,7 +119,7 @@ extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   }
 
   func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {
-    false
+    true
   }
 
   func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, didTransitionToRenderSize newRenderSize: CMVideoDimensions) {
