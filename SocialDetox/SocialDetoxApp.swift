@@ -12,17 +12,6 @@ import AVKit
 struct SocialDetoxApp: App {
   @StateObject var pip = PiP()
 
-  init() {
-    do {
-      // Workaround for prevent warning to set defaultToSpeaker options.
-      // https://developer.apple.com/forums/thread/714598
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
-      try AVAudioSession.sharedInstance().setActive(true)
-    } catch {
-      print("AudioSession throw error: \(error)")
-    }
-  }
-
   var body: some Scene {
         WindowGroup {
           if AVPictureInPictureController.isPictureInPictureSupported() {

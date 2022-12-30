@@ -3,6 +3,7 @@ import AVFoundation
 import Combine
 import SwiftUI
 
+let sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
 class PiP: NSObject, ObservableObject {
   enum Progress {
     case willStart
@@ -11,35 +12,48 @@ class PiP: NSObject, ObservableObject {
     case didStop
   }
 
+  @Published var canStart = false
   @Published var progress: Progress?
   @Published var launchError: Error?
   @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 80)
   @Published var isPlaying = false
   var isActivated: Bool { pictureInPictureController.isPictureInPictureActive }
 
-  private var pictureInPictureController: AVPictureInPictureController!
-  private var sampleBufferDisplayLayer: AVSampleBufferDisplayLayer {
-    pictureInPictureController.contentSource!.sampleBufferDisplayLayer!
-  }
-  private var observation: NSKeyValueObservation?
-
-  override init() {
-    super.init()
-
-    let contentSource = AVPictureInPictureController.ContentSource(sampleBufferDisplayLayer: .init(), playbackDelegate: self)
-    pictureInPictureController = AVPictureInPictureController(contentSource: contentSource)
+  private lazy var pictureInPictureController: AVPictureInPictureController = {
+    let contentSource = AVPictureInPictureController.ContentSource(sampleBufferDisplayLayer: sampleBufferDisplayLayer, playbackDelegate: self)
+    let pictureInPictureController = AVPictureInPictureController(contentSource: contentSource)
     pictureInPictureController.delegate = self
 
-    observation = sampleBufferDisplayLayer.observe(\AVSampleBufferDisplayLayer.status, options: [.initial, .new]) { [weak self] layer, change in
+    statusObservabtion = sampleBufferDisplayLayer.observe(\AVSampleBufferDisplayLayer.status, options: [.new]) { [weak self] layer, change in
       if change.newValue == .failed {
         self?.pictureInPictureController.invalidatePlaybackState()
-        self?.sampleBufferDisplayLayer.flush()
+        sampleBufferDisplayLayer.flush()
       }
     }
-  }
+
+    possibilityObservation = pictureInPictureController.observe(
+      \AVPictureInPictureController.isPictureInPicturePossible,
+       options: [.new],
+       changeHandler: { [weak self] controller, change in
+         if let value = change.newValue {
+           self?.canStart = value
+         }
+       })
+    return pictureInPictureController
+  }()
+  private var statusObservabtion: NSKeyValueObservation?
+  private var possibilityObservation: NSKeyValueObservation?
 
   func start() {
-      pictureInPictureController.startPictureInPicture()
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+      try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+      debugPrint("AudioSession throw error: \(error)")
+    }
+
+    debugPrint("isPictureInPicturePossible", pictureInPictureController.isPictureInPicturePossible)
+    pictureInPictureController.startPictureInPicture()
   }
 
   func stop() {
@@ -112,7 +126,7 @@ extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   }
 
   func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {
-    isPlaying = false
+//    isPlaying = false
     return true
   }
 
