@@ -2,3 +2,4 @@
 "Video" = "動画";
 "Message" = "チャット";
 "Unsupported device" = "このデバイスはサポートされていません";
+"%s can't open from app" = "このアプリからは開くことができません";

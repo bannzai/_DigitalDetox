@@ -1,28 +1,27 @@
 import SwiftUI
 
-struct ServicesView: View {
+struct ServicesPage: View {
   var body: some View {
     List {
       Section {
-        Text("1")
-        Text("2")
-        Text("3")
+        ServiceView(service: .twitter)
+        ServiceView(service: .facebook)
+        ServiceView(service: .instagram)
+        ServiceView(service: .snapchat)
       } header: {
         Text("SNS")
       }
 
       Section {
-        Text("1")
-        Text("2")
-        Text("3")
+        ServiceView(service: .youtube)
+        ServiceView(service: .netflix)
       } header: {
         Text("Video")
       }
 
       Section {
-        Text("1")
-        Text("2")
-        Text("3")
+        ServiceView(service: .slack)
+        ServiceView(service: .discord)
       } header: {
         Text("Message")
       }
@@ -42,11 +41,33 @@ enum Service: Int, Identifiable, CaseIterable {
   var id: RawValue { rawValue }
 
   var name: String {
-    "\(self)".uppercased()
+    "\(self)".capitalized
   }
 
   var iconName: String {
     "\(self)"
+  }
+
+  // Ref: https://medium.com/@contact.jmeyers/complete-list-of-ios-url-schemes-for-third-party-apps-always-updated-5663ef15bdff
+  var urlScheme: String {
+    switch self {
+    case .twitter:
+      return "twitter://"
+    case .facebook:
+      return "fb://"
+    case .instagram:
+      return "instagram://"
+    case .snapchat:
+      return "snapchat://"
+    case .youtube:
+      return "youtube://"
+    case .netflix:
+      return "nflx://"
+    case .slack:
+      return "slack://"
+    case .discord:
+      return "discord://"
+    }
   }
 }
 
@@ -54,19 +75,34 @@ struct ServiceView: View {
   let service: Service
 
   var body: some View {
-    HStack {
+    Button {
+      if let url = URL(string: service.urlScheme) {
+        Task { @MainActor in
+          await UIApplication.shared.open(url)
+        }
+      }
+    } label: {
+      HStack(spacing: 16) {
+        Image(service.iconName)
+          .resizable()
+          .scaledToFill()
+          .frame(width: 40, height: 40)
 
-      VStack {
+        VStack(alignment: .leading) {
+          Text(service.name)
 
+          Text("Open")
+        }
       }
     }
+    .buttonStyle(.plain)
     .padding()
   }
 }
 
-struct ServicesView_Previews: PreviewProvider {
+struct ServicesPage_Previews: PreviewProvider {
   static var previews: some View {
-    ServicesView()
+    ServicesPage()
   }
 }
 
