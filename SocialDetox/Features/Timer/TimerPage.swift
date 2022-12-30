@@ -4,7 +4,7 @@ struct TimerPage: View {
   @Environment(\.displayScale) var displayScale
   @EnvironmentObject var pip: PiP
   @Clock var clock
-  @State var remainingTime: TimeInterval? = 60 * 30
+  @State var remainingTime: TimeInterval? = 1 * 30
 
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime)
@@ -23,8 +23,15 @@ struct TimerPage: View {
 
             pip.enqueue(content: countdown, displayScale: displayScale)
           }
+          .onChange(of: remainingTime, perform: { remainingTime in
+            guard let remainingTime, remainingTime <= 0 else {
+              return
+            }
+            print(remainingTime)
+          })
           .frame(width: pip.size.width, height: pip.size.height)
           .border(Color.yellow)
+
 
 
         if pip.isActivated {

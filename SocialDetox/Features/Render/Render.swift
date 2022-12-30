@@ -1,25 +1,19 @@
 import SwiftUI
 
-@MainActor func viewToCGImage<V: View>(content: V, displayScale: CGFloat, size: CGSize) -> CGImage? {
-  let renderer = ImageRenderer(content: content)
-  renderer.scale = displayScale
-  renderer.proposedSize = .init(size)
-  return renderer.cgImage
-}
-
 // NOTE: https://note.com/reality_eng/n/n662347337553
-@MainActor func makeImage(body: some View, size: CGSize) -> CGImage? {
-  let imageRenderer = ImageRenderer(content: body)
-  imageRenderer.scale = UIScreen.main.scale
+@MainActor func viewToCGImage<V: View>(content: V, displayScale: CGFloat, size: CGSize) -> CGImage? {
+  let imageRenderer = ImageRenderer(content: content)
+  imageRenderer.scale = displayScale
   imageRenderer.proposedSize = ProposedViewSize(size)
+
   let uiGraphicsImageRenderer = UIGraphicsImageRenderer(size: size)
   let image = uiGraphicsImageRenderer.image { context in
     imageRenderer.render { _, uiGraphicsImageRenderer in
-      // CGContextの座標は上下が逆なので、反転させる
       let flipVerticalMatrix = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: size.height)
       context.cgContext.concatenate(flipVerticalMatrix)
       uiGraphicsImageRenderer(context.cgContext)
     }
   }
+
   return image.cgImage
 }
