@@ -28,9 +28,9 @@ extension CGImage {
       return nil
     }
     func drawToPixelBuffer() {
-      CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
+      CVPixelBufferLockBaseAddress(pixelBuffer, [])
       defer {
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
+        CVPixelBufferUnlockBaseAddress(pixelBuffer, [])
       }
       let baseAddr = CVPixelBufferGetBaseAddress(pixelBuffer)
       let context = CGContext(
@@ -42,7 +42,7 @@ extension CGImage {
         space: CGColorSpaceCreateDeviceRGB(),
         bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue
       )
-      context?.draw(self, in: .init(origin: .zero, size: .init(width: width, height: height)))
+      context?.draw(self, in: .init(origin: .zero, size: .init(width: .init(size.width), height: .init(size.height))))
     }
     drawToPixelBuffer()
 

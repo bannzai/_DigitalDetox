@@ -1,6 +1,7 @@
 import AVKit
 import SwiftUI
 
+let sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
 struct PiPContainer: UIViewRepresentable {
   @EnvironmentObject var pip: PiP
 

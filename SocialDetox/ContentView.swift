@@ -34,6 +34,8 @@ struct ContentView: View {
 
 //        countdown
       }
+      .border(Color.yellow)
+      
 
       if pip.isActivated {
         Button {
@@ -54,6 +56,7 @@ struct ContentView: View {
       }
     }
     .padding()
+    .background(Color.red)
   }
 }
 

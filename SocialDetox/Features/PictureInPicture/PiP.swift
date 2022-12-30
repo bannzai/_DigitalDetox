@@ -3,7 +3,6 @@ import AVFoundation
 import Combine
 import SwiftUI
 
-let sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
 class PiP: NSObject, ObservableObject {
   enum Progress {
     case willStart
