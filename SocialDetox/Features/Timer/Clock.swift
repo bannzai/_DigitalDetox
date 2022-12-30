@@ -4,7 +4,7 @@ import SwiftUI
 class _Clock: ObservableObject {
   @Published var now: Date = .now
 
-  let timer = Timer.publish(every: 1, on: .main, in: .default)
+  let timer = Timer.publish(every: 1, on: .main, in: .common)
     .autoconnect()
 
   init() {

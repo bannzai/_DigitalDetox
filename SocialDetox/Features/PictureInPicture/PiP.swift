@@ -15,13 +15,28 @@ class PiP: NSObject, ObservableObject {
   @Published var canStart = false
   @Published var progress: Progress?
   @Published var launchError: Error?
-  @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 80)
+  @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 120)
   @Published var isPlaying = false
   var isActivated: Bool { pictureInPictureController.isPictureInPictureActive }
 
-  private lazy var pictureInPictureController: AVPictureInPictureController = {
+  private var pictureInPictureController: AVPictureInPictureController!
+  private var statusObservabtion: NSKeyValueObservation?
+  private var possibilityObservation: NSKeyValueObservation?
+
+  override init() {
+    super.init()
+
+    // NOTE: AVAudioSession should prepare to use pictureInPictureController all functions
+    do {
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+      try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+      debugPrint("AudioSession throw error: \(error)")
+    }
+
     let contentSource = AVPictureInPictureController.ContentSource(sampleBufferDisplayLayer: sampleBufferDisplayLayer, playbackDelegate: self)
-    let pictureInPictureController = AVPictureInPictureController(contentSource: contentSource)
+    pictureInPictureController = AVPictureInPictureController(contentSource: contentSource)
+    pictureInPictureController.canStartPictureInPictureAutomaticallyFromInline = true
     pictureInPictureController.delegate = self
 
     statusObservabtion = sampleBufferDisplayLayer.observe(\AVSampleBufferDisplayLayer.status, options: [.new]) { [weak self] layer, change in
@@ -33,26 +48,18 @@ class PiP: NSObject, ObservableObject {
 
     possibilityObservation = pictureInPictureController.observe(
       \AVPictureInPictureController.isPictureInPicturePossible,
-       options: [.new],
+       options: [.initial, .new],
        changeHandler: { [weak self] controller, change in
          if let value = change.newValue {
            self?.canStart = value
          }
        })
-    return pictureInPictureController
-  }()
-  private var statusObservabtion: NSKeyValueObservation?
-  private var possibilityObservation: NSKeyValueObservation?
+
+
+
+  }
 
   func start() {
-    do {
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
-      try AVAudioSession.sharedInstance().setActive(true)
-    } catch {
-      debugPrint("AudioSession throw error: \(error)")
-    }
-
-    debugPrint("isPictureInPicturePossible", pictureInPictureController.isPictureInPicturePossible)
     pictureInPictureController.startPictureInPicture()
   }
 
@@ -68,7 +75,8 @@ class PiP: NSObject, ObservableObject {
     let image = viewToCGImage(
       content: content.frame(
         width: size.width,
-        height: size.height),
+        height: size.height
+      ),
       displayScale: displayScale,
       size: size
     )
@@ -76,7 +84,6 @@ class PiP: NSObject, ObservableObject {
     do {
       if let sampleBuffer = try image?.sampleBuffer(displayScale: displayScale) {
         sampleBufferDisplayLayer.enqueue(sampleBuffer)
-        debugPrint(sampleBuffer)
       }
     } catch {
       // Ignore error
@@ -116,13 +123,17 @@ extension PiP: AVPictureInPictureControllerDelegate {
 
 
 extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
-  // NOTE: playing false means poused
+  // NOTE: playing false means paused
   func pictureInPictureController(_ : AVPictureInPictureController, setPlaying playing: Bool) {
     isPlaying = playing
   }
 
   func pictureInPictureControllerTimeRangeForPlayback(_ pictureInPictureController: AVPictureInPictureController) -> CMTimeRange {
-    return CMTimeRange(start: .negativeInfinity, end: .positiveInfinity)
+    if pictureInPictureController.isPictureInPictureActive {
+      return CMTimeRange(start: .negativeInfinity, end: .positiveInfinity)
+    } else {
+      return CMTimeRange.invalid
+    }
   }
 
   func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {

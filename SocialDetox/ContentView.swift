@@ -16,16 +16,24 @@ struct ContentView: View {
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime)
     VStack {
-      countdown
-        .onChange(of: clock.now) { _ in
-          if pip.isActivated {
-            if pip.isPlaying, let remainingTime {
-              self.remainingTime = remainingTime - 1
+      ZStack {
+        PiPContainer()
+          .onChange(of: clock.now) { _ in
+            switch pip.progress {
+            case .willStart, .didStart, .willStop:
+              if let remainingTime {
+                self.remainingTime = remainingTime - 1
+              }
+            case nil, .didStop:
+              break
             }
 
             pip.enqueue(content: countdown, displayScale: displayScale)
           }
-        }
+          .frame(width: pip.size.width, height: pip.size.height)
+
+//        countdown
+      }
 
       if pip.isActivated {
         Button {
