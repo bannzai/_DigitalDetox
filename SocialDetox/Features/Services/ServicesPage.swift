@@ -48,41 +48,8 @@ enum Service: Int, Identifiable, CaseIterable {
   var iconName: String {
     "\(self)"
   }
-
-  enum Category: Int, Identifiable, CaseIterable {
-    case sns
-    case video
-    case message
-
-    var id: RawValue { rawValue }
-
-    var titleKey: LocalizedStringKey {
-      switch self {
-      case .sns:
-        return "SNS"
-      case .video:
-        return "Video"
-      case .message:
-        return "Message"
-      }
-    }
-
-    var services: [Service] {
-      Service.allCases.filter { $0.category == self }
-    }
-  }
-
-  var category: Category {
-    switch self {
-    case .twitter, .facebook, .instagram, .snapchat:
-      return .sns
-    case .youtube, .netflix:
-      return .video
-    case .slack, .discord:
-      return .message
-    }
-  }
 }
+
 struct ServiceView: View {
   let service: Service
 
