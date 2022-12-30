@@ -13,6 +13,7 @@ struct Countdown: View {
       Colon()
       Number(value: components?.second)
     }
+    .background(Color.white)
     .foregroundColor(.blue)
   }
 
