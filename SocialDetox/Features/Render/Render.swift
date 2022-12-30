@@ -8,7 +8,7 @@ import SwiftUI
 }
 
 // NOTE: https://note.com/reality_eng/n/n662347337553
-@MainActor func makeImage(body: some View, size: CGSize) -> UIImage? {
+@MainActor func makeImage(body: some View, size: CGSize) -> CGImage? {
   let imageRenderer = ImageRenderer(content: body)
   imageRenderer.scale = UIScreen.main.scale
   imageRenderer.proposedSize = ProposedViewSize(size)
@@ -21,5 +21,5 @@ import SwiftUI
       uiGraphicsImageRenderer(context.cgContext)
     }
   }
-  return image
+  return image.cgImage
 }

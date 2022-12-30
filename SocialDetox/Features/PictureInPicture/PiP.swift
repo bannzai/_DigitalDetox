@@ -15,19 +15,17 @@ class PiP: NSObject, ObservableObject {
   @Published var progress: Progress?
   @Published var launchError: Error?
   @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 120)
-  @Published var isPlaying = false
   var isActivated: Bool { pictureInPictureController.isPictureInPictureActive }
 
   private var pictureInPictureController: AVPictureInPictureController!
-  private var statusObservabtion: NSKeyValueObservation?
-  private var possibilityObservation: NSKeyValueObservation?
+  private var canceller: Set<AnyCancellable> = []
 
   override init() {
     super.init()
 
     // NOTE: AVAudioSession should prepare to use pictureInPictureController all functions
     do {
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+      try AVAudioSession.sharedInstance().setCategory(.playback)
       try AVAudioSession.sharedInstance().setActive(true)
     } catch {
       debugPrint("AudioSession throw error: \(error)")
@@ -35,27 +33,18 @@ class PiP: NSObject, ObservableObject {
 
     let contentSource = AVPictureInPictureController.ContentSource(sampleBufferDisplayLayer: sampleBufferDisplayLayer, playbackDelegate: self)
     pictureInPictureController = AVPictureInPictureController(contentSource: contentSource)
-    pictureInPictureController.canStartPictureInPictureAutomaticallyFromInline = true
     pictureInPictureController.delegate = self
 
-    statusObservabtion = sampleBufferDisplayLayer.observe(\AVSampleBufferDisplayLayer.status, options: [.new]) { [weak self] layer, change in
-      if change.newValue == .failed {
-        self?.pictureInPictureController.invalidatePlaybackState()
-        sampleBufferDisplayLayer.flush()
+    pictureInPictureController
+      .publisher(for: \.isPictureInPicturePossible, options: [.initial, .new])
+      .sink { [weak self] possible in
+        self?.canStart = possible
       }
-    }
+      .store(in: &canceller)
+  }
 
-    possibilityObservation = pictureInPictureController.observe(
-      \AVPictureInPictureController.isPictureInPicturePossible,
-       options: [.initial, .new],
-       changeHandler: { [weak self] controller, change in
-         if let value = change.newValue {
-           self?.canStart = value
-         }
-       })
-
-
-
+  deinit {
+    canceller.forEach { $0.cancel() }
   }
 
   func start() {
@@ -63,9 +52,8 @@ class PiP: NSObject, ObservableObject {
   }
 
   func stop() {
-      pictureInPictureController.stopPictureInPicture()
-      progress = nil
-      isPlaying = false
+    pictureInPictureController.stopPictureInPicture()
+    progress = nil
   }
 
   @MainActor func enqueue<V: View>(content: V, displayScale: CGFloat) {
@@ -124,20 +112,14 @@ extension PiP: AVPictureInPictureControllerDelegate {
 extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   // NOTE: playing false means paused
   func pictureInPictureController(_ : AVPictureInPictureController, setPlaying playing: Bool) {
-    isPlaying = playing
   }
 
   func pictureInPictureControllerTimeRangeForPlayback(_ pictureInPictureController: AVPictureInPictureController) -> CMTimeRange {
-    if pictureInPictureController.isPictureInPictureActive {
-      return CMTimeRange(start: .negativeInfinity, end: .positiveInfinity)
-    } else {
-      return CMTimeRange.invalid
-    }
+    .init(start: .negativeInfinity, end: .positiveInfinity)
   }
 
   func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {
-//    isPlaying = false
-    return true
+    false
   }
 
   func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, didTransitionToRenderSize newRenderSize: CMVideoDimensions) {

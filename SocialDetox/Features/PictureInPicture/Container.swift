@@ -8,7 +8,6 @@ struct PiPContainer: UIViewRepresentable {
   func makeUIView(context: Context)  -> UIView {
     let container = UIView(frame: .init(origin: .zero, size: pip.size))
     sampleBufferDisplayLayer.frame.size = container.bounds.size
-    sampleBufferDisplayLayer.videoGravity = .resizeAspect
     container.layer.addSublayer(sampleBufferDisplayLayer)
     return container
   }
