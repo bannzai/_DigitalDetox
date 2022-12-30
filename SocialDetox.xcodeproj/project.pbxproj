@@ -14,6 +14,7 @@
 		2063FB15295C895A00C7BFC9 /* UIImage+CoreMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB14295C895A00C7BFC9 /* UIImage+CoreMedia.swift */; };
 		2063FB1A295D875E00C7BFC9 /* PiP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB19295D875E00C7BFC9 /* PiP.swift */; };
 		2063FB1D295E80C400C7BFC9 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB1C295E80C400C7BFC9 /* Container.swift */; };
+		2063FB1F295F10C600C7BFC9 /* TimerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB1E295F10C600C7BFC9 /* TimerPage.swift */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		2063FB19295D875E00C7BFC9 /* PiP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiP.swift; sourceTree = "<group>"; };
 		2063FB1B295E5A8B00C7BFC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2063FB1C295E80C400C7BFC9 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		2063FB1E295F10C600C7BFC9 /* TimerPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPage.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				2063FB0C295C6FAE00C7BFC9 /* Clock.swift */,
 				2063FB09295C6F6A00C7BFC9 /* Countdown.swift */,
+				2063FB1E295F10C600C7BFC9 /* TimerPage.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2063FB1F295F10C600C7BFC9 /* TimerPage.swift in Sources */,
 				2063FB10295C76CA00C7BFC9 /* Render.swift in Sources */,
 				2063FB15295C895A00C7BFC9 /* UIImage+CoreMedia.swift in Sources */,
 				20C83A6F295878E800DDB450 /* ContentView.swift in Sources */,
