@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct ServicesView: View {
   var body: some View {
     List {
       Section {
@@ -31,8 +31,31 @@ struct ContentView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
+enum Service: Int, Identifiable {
+  // SNS
+  case twitter, facebook, instagram, snapchat
+  // Movie
+  case youtube, netflix
+  // Message
+  case slack, discord
+
+  var id: RawValue { rawValue }
+}
+struct ServiceView: View {
+  var body: some View {
+    HStack {
+
+      VStack {
+
+      }
+    }
+    .padding()
   }
 }
+
+struct ServicesView_Previews: PreviewProvider {
+  static var previews: some View {
+    ServicesView()
+  }
+}
+
