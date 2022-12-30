@@ -77,9 +77,7 @@ struct ServiceView: View {
   var body: some View {
     Button {
       if let url = URL(string: service.urlScheme) {
-        Task { @MainActor in
-          await UIApplication.shared.open(url)
-        }
+        UIApplication.shared.open(url)
       }
     } label: {
       HStack(spacing: 16) {

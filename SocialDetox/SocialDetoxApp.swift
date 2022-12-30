@@ -11,7 +11,6 @@ import AVKit
 
 @main
 struct SocialDetoxApp: App {
-  @StateObject var pip = PiP()
 
   init() {
   }
@@ -20,7 +19,6 @@ struct SocialDetoxApp: App {
         WindowGroup {
           if AVPictureInPictureController.isPictureInPictureSupported() {
             ContentView()
-              .environmentObject(pip)
           } else {
             Text("Unsupported device")
           }

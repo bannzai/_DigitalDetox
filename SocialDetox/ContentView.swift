@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
+  @StateObject var pip = PiP()
   var body: some View {
     ServicesPage()
+      .environmentObject(pip)
   }
 }
 
