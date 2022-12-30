@@ -50,7 +50,7 @@ extension CGImage {
     let timingInfo = CMSampleTimingInfo(
       duration: .init(seconds: 1, preferredTimescale: 60),
       presentationTimeStamp: .init(seconds: CACurrentMediaTime(), preferredTimescale: 60),
-      decodeTimeStamp: .init(seconds: CACurrentMediaTime(), preferredTimescale: 60)
+      decodeTimeStamp: .invalid
     )
     return try CMSampleBuffer(
       imageBuffer: pixelBuffer,

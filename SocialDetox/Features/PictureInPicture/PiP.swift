@@ -49,6 +49,7 @@ class PiP: NSObject, ObservableObject {
 
   func start() {
     pictureInPictureController.startPictureInPicture()
+    print(pictureInPictureController.contentSource?.sampleBufferDisplayLayer === sampleBufferDisplayLayer)
   }
 
   func stop() {

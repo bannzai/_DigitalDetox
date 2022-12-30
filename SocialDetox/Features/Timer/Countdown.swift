@@ -13,6 +13,7 @@ struct Countdown: View {
       Colon()
       Number(value: components?.second)
     }
+    .foregroundColor(.blue)
   }
 
   func timeComponents() -> (hour: Int, minute: Int, second: Int)? {
