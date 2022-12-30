@@ -15,6 +15,7 @@
 		2063FB1A295D875E00C7BFC9 /* PiP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB19295D875E00C7BFC9 /* PiP.swift */; };
 		2063FB1D295E80C400C7BFC9 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB1C295E80C400C7BFC9 /* Container.swift */; };
 		2063FB1F295F10C600C7BFC9 /* TimerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB1E295F10C600C7BFC9 /* TimerPage.swift */; };
+		2063FB24295F124A00C7BFC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2063FB26295F124A00C7BFC9 /* Localizable.strings */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		2063FB1B295E5A8B00C7BFC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2063FB1C295E80C400C7BFC9 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		2063FB1E295F10C600C7BFC9 /* TimerPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPage.swift; sourceTree = "<group>"; };
+		2063FB25295F124A00C7BFC9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,14 @@
 			path = PictureInPicture;
 			sourceTree = "<group>";
 		};
+		2063FB20295F120A00C7BFC9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2063FB26295F124A00C7BFC9 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		20C83A60295878E800DDB450 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +158,7 @@
 		20C83A6B295878E800DDB450 /* SocialDetox */ = {
 			isa = PBXGroup;
 			children = (
+				2063FB20295F120A00C7BFC9 /* Resources */,
 				2063FB1B295E5A8B00C7BFC9 /* Info.plist */,
 				2063FB11295C7AE600C7BFC9 /* Utils */,
 				2063FB07295C6F4000C7BFC9 /* Features */,
@@ -219,6 +230,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 20C83A60295878E800DDB450;
 			packageReferences = (
@@ -239,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20C83A74295878E900DDB450 /* Preview Assets.xcassets in Resources */,
+				2063FB24295F124A00C7BFC9 /* Localizable.strings in Resources */,
 				20C83A71295878E900DDB450 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +277,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2063FB26295F124A00C7BFC9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2063FB25295F124A00C7BFC9 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		20C83A75295878E900DDB450 /* Debug */ = {
