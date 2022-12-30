@@ -16,39 +16,43 @@ struct ContentView: View {
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime)
     VStack {
-      PiPContainer()
-        .onChange(of: clock.now) { _ in
-          switch pip.progress {
-          case .willStart, .didStart, .willStop:
-            if let remainingTime {
-              self.remainingTime = remainingTime - 1
+      if pip.canStart {
+        PiPContainer()
+          .onChange(of: clock.now) { _ in
+            switch pip.progress {
+            case .willStart, .didStart, .willStop:
+              if let remainingTime {
+                self.remainingTime = remainingTime - 1
+              }
+            case nil, .didStop:
+              break
             }
-          case nil, .didStop:
-            break
+
+            pip.enqueue(content: countdown, displayScale: displayScale)
           }
+          .frame(width: pip.size.width, height: pip.size.height)
+          .border(Color.yellow)
 
-          pip.enqueue(content: countdown, displayScale: displayScale)
-        }
-        .frame(width: pip.size.width, height: pip.size.height)
-        .border(Color.yellow)
-      
 
-      if pip.isActivated {
-        Button {
-          pip.stop()
-        } label: {
-          Image(systemName: "stop.fill")
-            .imageScale(.large)
-            .foregroundColor(.accentColor)
+        if pip.isActivated {
+          Button {
+            pip.stop()
+          } label: {
+            Image(systemName: "stop.fill")
+              .imageScale(.large)
+              .foregroundColor(.accentColor)
+          }
+        } else {
+          Button {
+            pip.start()
+          } label: {
+            Image(systemName: "play.fill")
+              .imageScale(.large)
+              .foregroundColor(.accentColor)
+          }
         }
       } else {
-        Button {
-          pip.start()
-        } label: {
-          Image(systemName: "play.fill")
-            .imageScale(.large)
-            .foregroundColor(.accentColor)
-        }
+        ProgressView()
       }
     }
     .background(Color.red)
