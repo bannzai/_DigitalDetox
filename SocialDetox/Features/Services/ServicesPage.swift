@@ -107,6 +107,7 @@ struct ServiceView: View {
           .scaledToFill()
           .frame(width: 32, height: 32)
           .background(service.iconBackgroundColor)
+          .cornerRadius(4)
 
         VStack(alignment: .leading) {
           Text(service.name)
