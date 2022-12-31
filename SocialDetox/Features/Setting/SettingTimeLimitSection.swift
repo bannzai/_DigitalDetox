@@ -117,18 +117,4 @@ struct SettingTimeLimitSection_Previews: PreviewProvider {
   }
 }
 
-// MARK: - Private
-fileprivate extension String {
-  static let prefix = "Setting.LimitTime"
-  static let snsHour = "\(prefix).snsHour"
-  static let snsMinute = "\(prefix).snsMinute"
-  static let videoHour = "\(prefix).videoHour"
-  static let videoMinute = "\(prefix).videoMinute"
-  static let messageHour = "\(prefix).messageHour"
-  static let messageMinute = "\(prefix).messageMinute"
-}
 
-fileprivate extension Int {
-  static let defaultHour = 0
-  static let defaultMinute = 30
-}
