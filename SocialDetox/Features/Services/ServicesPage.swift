@@ -118,8 +118,12 @@ struct ServiceView: View {
         }
 
         Spacer()
-        Text("Start")
-          .foregroundColor(.init(uiColor: .systemMint))
+        HStack {
+          Text("Start")
+            .foregroundColor(.init(uiColor: .systemMint))
+
+          Image(systemName: "chevron.right")
+        }
       }
     }
     .buttonStyle(.plain)
