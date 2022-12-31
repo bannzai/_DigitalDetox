@@ -5,6 +5,7 @@ struct SettingPage: View {
     List {
       SettingTimeLimitSection()
     }
+    .navigationBarTitleDisplayMode(.inline)
     .listStyle(.insetGrouped)
   }
 }

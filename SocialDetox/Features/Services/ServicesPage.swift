@@ -30,6 +30,7 @@ struct ServicesPage: View {
       }
     }
     .listStyle(.insetGrouped)
+    .navigationTitle("Launcher")
   }
 }
 

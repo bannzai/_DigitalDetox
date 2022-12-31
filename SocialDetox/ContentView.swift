@@ -7,14 +7,14 @@ struct ContentView: View {
     NavigationStack {
       ServicesPage()
         .environmentObject(pip)
-        .navigationTitle("Launcher")
         .toolbar(content: {
           ToolbarItem(placement: .navigationBarTrailing, content: {
             NavigationLink(destination: SettingPage(), label: {
-              Image(systemName: "gear.fill")
+              Image(systemName: "gearshape.fill")
             })
           })
         })
     }
   }
 }
+
