@@ -11,10 +11,6 @@ import AVKit
 
 @main
 struct SocialDetoxApp: App {
-
-  init() {
-  }
-
   var body: some Scene {
         WindowGroup {
           if AVPictureInPictureController.isPictureInPictureSupported() {

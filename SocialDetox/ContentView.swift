@@ -7,6 +7,7 @@ struct ContentView: View {
     NavigationStack {
       ServicesPage()
         .environmentObject(pip)
+        .navigationTitle("Launcher")
         .toolbar(content: {
           ToolbarItem(placement: .navigationBarTrailing, content: {
             NavigationLink(destination: SettingPage(), label: {
