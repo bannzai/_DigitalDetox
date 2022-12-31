@@ -48,6 +48,27 @@ enum Service: Int, Identifiable, CaseIterable {
     "\(self)"
   }
 
+  var iconBackgroundColor: Color {
+    switch self {
+    case .twitter:
+      return .clear
+    case .facebook:
+      return .init(uiColor: .init(red: 26 / 255, green: 119 / 255, blue: 242 / 255, alpha: 1))
+    case .instagram:
+      return .white
+    case .snapchat:
+      return .init(uiColor: .init(red: 255 / 255, green: 252 / 255, blue: 0, alpha: 1))
+    case .youtube:
+        return .white
+    case .netflix:
+      return .black
+    case .slack:
+      return .white
+    case .discord:
+      return .init(uiColor: .init(red: 87 / 255, green: 101 / 255, blue: 242 / 255, alpha: 1))
+    }
+  }
+
   // Ref: https://medium.com/@contact.jmeyers/complete-list-of-ios-url-schemes-for-third-party-apps-always-updated-5663ef15bdff
   var urlScheme: String {
     switch self {
@@ -85,6 +106,7 @@ struct ServiceView: View {
           .resizable()
           .scaledToFill()
           .frame(width: 32, height: 32)
+          .background(service.iconBackgroundColor)
 
         VStack(alignment: .leading) {
           Text(service.name)
@@ -94,13 +116,17 @@ struct ServiceView: View {
       }
     }
     .buttonStyle(.plain)
-    .padding()
   }
 }
 
 struct ServicesPage_Previews: PreviewProvider {
   static var previews: some View {
-    ServicesPage()
+    Group {
+      ServicesPage()
+        .environment(\.colorScheme, .dark)
+      ServicesPage()
+        .environment(\.colorScheme, .light)
+    }
   }
 }
 
