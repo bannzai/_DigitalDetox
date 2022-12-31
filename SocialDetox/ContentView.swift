@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
   @StateObject var pip = PiP()
   var body: some View {
-    TimerPage()
+    ServicesPage()
       .environmentObject(pip)
   }
 }

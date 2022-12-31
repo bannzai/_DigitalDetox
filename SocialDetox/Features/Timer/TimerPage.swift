@@ -13,11 +13,11 @@ struct TimerPage: View {
         PiPContainer()
           .onChange(of: clock.now) { _ in
             switch pip.progress {
-            case .willStart, .didStart, .willStop:
+            case .willStart, .didStart:
               if let remainingTime {
                 self.remainingTime = remainingTime - 1
               }
-            case nil, .didStop:
+            case nil, .willStop, .didStop:
               break
             }
 
