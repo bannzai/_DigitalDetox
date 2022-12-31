@@ -84,7 +84,7 @@ struct ServiceView: View {
         Image(service.iconName)
           .resizable()
           .scaledToFill()
-          .frame(width: 40, height: 40)
+          .frame(width: 32, height: 32)
 
         VStack(alignment: .leading) {
           Text(service.name)
