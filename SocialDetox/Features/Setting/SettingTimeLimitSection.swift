@@ -53,14 +53,14 @@ struct SettingTimeLimitSection: View {
             Button {
               hourPickerIsPresented.toggle()
             } label: {
-              Text("\(hour.wrappedValue)")
+              Text("Hour \(hour.wrappedValue)")
             }
             .buttonStyle(.bordered)
 
             Button {
               minutePickerIsPresented.toggle()
             } label: {
-              Text(String(format: "%02d", minute.wrappedValue))
+              Text("Minute \(String(format: "%02d", minute.wrappedValue))")
             }
             .buttonStyle(.bordered)
           }

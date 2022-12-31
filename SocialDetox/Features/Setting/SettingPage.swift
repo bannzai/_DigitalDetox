@@ -12,7 +12,11 @@ struct SettingPage: View {
 
 struct SettingPage_Previews: PreviewProvider {
   static var previews: some View {
-    SettingPage()
-      .environment(\.locale, .init(identifier: "ja"))
+    Group {
+      SettingPage()
+        .environment(\.locale, .init(identifier: "ja"))
+      SettingPage()
+        .environment(\.locale, .init(identifier: "en"))
+    }
   }
 }
