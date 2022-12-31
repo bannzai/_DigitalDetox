@@ -3,3 +3,6 @@
 "Message" = "チャット";
 "Unsupported device" = "このデバイスはサポートされていません";
 "%s can't open from app" = "このアプリからは開くことができません";
+"Hour" = "時";
+"Minute" = "分";
+"Close" = "閉じる";
