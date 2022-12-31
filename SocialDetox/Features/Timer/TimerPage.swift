@@ -30,9 +30,6 @@ struct TimerPage: View {
             print(remainingTime)
           })
           .frame(width: pip.size.width, height: pip.size.height)
-          .border(Color.yellow)
-
-
 
         if pip.isActivated {
           Button {
@@ -55,7 +52,6 @@ struct TimerPage: View {
         ProgressView()
       }
     }
-    .background(Color.red)
   }
 }
 

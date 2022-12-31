@@ -63,7 +63,8 @@ class PiP: NSObject, ObservableObject {
       content: content.frame(
         width: size.width,
         height: size.height
-      ),
+      )
+      .background(Color.white),
       displayScale: displayScale,
       size: size
     )
