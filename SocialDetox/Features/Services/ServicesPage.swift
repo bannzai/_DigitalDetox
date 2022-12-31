@@ -10,6 +10,7 @@ struct ServicesPage: View {
         ServiceView(service: .snapchat)
       } header: {
         Text("SNS")
+          .textCase(nil)
       }
 
       Section {
@@ -17,6 +18,7 @@ struct ServicesPage: View {
         ServiceView(service: .netflix)
       } header: {
         Text("Video")
+          .textCase(nil)
       }
 
       Section {
@@ -24,6 +26,7 @@ struct ServicesPage: View {
         ServiceView(service: .discord)
       } header: {
         Text("Message")
+          .textCase(nil)
       }
     }
     .listStyle(.insetGrouped)
