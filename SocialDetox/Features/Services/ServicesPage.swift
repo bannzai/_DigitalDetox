@@ -111,9 +111,11 @@ struct ServiceView: View {
 
         VStack(alignment: .leading) {
           Text(service.name)
-
-          Text("Open")
         }
+
+        Spacer()
+        Text("Start")
+          .foregroundColor(.init(uiColor: .systemMint))
       }
     }
     .buttonStyle(.plain)
