@@ -1,11 +1,6 @@
 import SwiftUI
 
 struct SettingTimeLimitSection: View {
-  struct Time: Hashable {
-    let hour: Int
-    let minute: Int
-  }
-
   @AppStorage(.snsHour) private var snsHour: Int = .defaultHour
   @AppStorage(.snsMinute) private var snsMinute: Int = .defaultMinute
   @AppStorage(.videoHour) private var videoHour: Int = .defaultHour
