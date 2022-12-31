@@ -13,8 +13,6 @@ struct SettingTimeLimitSection: View {
   @AppStorage(.messageHour) private var messageHour: Int = .defaultHour
   @AppStorage(.messageMinute) private var messageMinute: Int = .defaultMinute
 
-  @State var snsHourPickerIsPresented = false
-  @State var snsMinutePickerIsPresented = false
   var body: some View {
     Section {
       Component(
