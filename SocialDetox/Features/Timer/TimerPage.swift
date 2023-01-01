@@ -7,7 +7,7 @@ struct TimerPage: View {
   @State var remainingTime: Int
 
   init(hour: Int, minute: Int) {
-    remainingTime = hour * (60 * 60) + minute * (60)
+    remainingTime = .remainingTime(hour: hour, minute: minute)
   }
 
   var body: some View {

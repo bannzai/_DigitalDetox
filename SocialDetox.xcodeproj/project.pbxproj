@@ -21,6 +21,7 @@
 		2063FB2E295FE6E800C7BFC9 /* SettingTimeLimitSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB2D295FE6E800C7BFC9 /* SettingTimeLimitSection.swift */; };
 		2063FB4C29608E5700C7BFC9 /* AppStorage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB4B29608E5700C7BFC9 /* AppStorage+.swift */; };
 		2063FB4E2960909600C7BFC9 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB4D2960909600C7BFC9 /* Int+.swift */; };
+		20B63F80296146A2008F5295 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F7F296146A2008F5295 /* Timer.swift */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		2063FB2D295FE6E800C7BFC9 /* SettingTimeLimitSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTimeLimitSection.swift; sourceTree = "<group>"; };
 		2063FB4B29608E5700C7BFC9 /* AppStorage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+.swift"; sourceTree = "<group>"; };
 		2063FB4D2960909600C7BFC9 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		20B63F7F296146A2008F5295 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				2063FB0C295C6FAE00C7BFC9 /* Clock.swift */,
 				2063FB09295C6F6A00C7BFC9 /* Countdown.swift */,
 				2063FB1E295F10C600C7BFC9 /* TimerPage.swift */,
+				20B63F7F296146A2008F5295 /* Timer.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				2063FB15295C895A00C7BFC9 /* UIImage+CoreMedia.swift in Sources */,
 				20C83A6F295878E800DDB450 /* ContentView.swift in Sources */,
 				2063FB0A295C6F6A00C7BFC9 /* Countdown.swift in Sources */,
+				20B63F80296146A2008F5295 /* Timer.swift in Sources */,
 				2063FB13295C7AF600C7BFC9 /* When.swift in Sources */,
 				2063FB1A295D875E00C7BFC9 /* PiP.swift in Sources */,
 				20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */,
