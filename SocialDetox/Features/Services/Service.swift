@@ -60,6 +60,22 @@ enum Service: Int, Identifiable, CaseIterable {
       return "discord://"
     }
   }
+
+  enum Category: CaseIterable {
+    case sns
+    case video
+    case message
+  }
+  var category: Category {
+    switch self {
+    case .twitter, .facebook, .instagram, .snapchat:
+      return .sns
+    case .youtube, .netflix:
+      return .video
+    case .slack, .discord:
+      return .message
+    }
+  }
 }
 
 

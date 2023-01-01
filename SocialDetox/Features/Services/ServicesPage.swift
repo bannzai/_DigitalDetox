@@ -38,35 +38,25 @@ struct ServiceView: View {
   let service: Service
 
   var body: some View {
-    ZStack {
-      Button {
-        if let url = URL(string: service.urlScheme) {
-          UIApplication.shared.open(url)
+    NavigationLink {
+      TimerPage(service: service)
+    } label: {
+      HStack(spacing: 16) {
+        Image(service.iconName)
+          .resizable()
+          .scaledToFill()
+          .frame(width: 32, height: 32)
+          .background(service.iconBackgroundColor)
+          .cornerRadius(4)
+
+        VStack(alignment: .leading) {
+          Text(service.name)
         }
-      } label: {
-        HStack(spacing: 16) {
-          Image(service.iconName)
-            .resizable()
-            .scaledToFill()
-            .frame(width: 32, height: 32)
-            .background(service.iconBackgroundColor)
-            .cornerRadius(4)
 
-          VStack(alignment: .leading) {
-            Text(service.name)
-          }
-
-          Spacer()
-          HStack {
-            Text("Start")
-              .foregroundColor(.init(uiColor: .systemMint))
-
-            Image(systemName: "chevron.right")
-          }
-        }
+        Spacer()
       }
-      .buttonStyle(.plain)
     }
+    .buttonStyle(.plain)
   }
 }
 

@@ -1,7 +1,7 @@
 import SwiftUI
 
 final class Deadline: ObservableObject, Codable {
-  @Published var lastRecordDateTimestamp = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: .now).date!.timeIntervalSince1970
+  @Published var lastRecordDateTimestamp = Calendar.autoupdatingCurrent.startOfDay(for: .now).timeIntervalSince1970
   @Published var remainingSNSTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingMessageTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
@@ -31,7 +31,7 @@ final class Deadline: ObservableObject, Codable {
   }
 
   func resetIfNeeded() {
-    let today = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: .now).date!
+    let today = Calendar.autoupdatingCurrent.startOfDay(for: .now)
     if Calendar.autoupdatingCurrent.isDate(today, inSameDayAs: Date(timeIntervalSince1970: lastRecordDateTimestamp)) {
       return
     }

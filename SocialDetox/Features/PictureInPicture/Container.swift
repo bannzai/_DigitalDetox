@@ -3,7 +3,7 @@ import SwiftUI
 
 let sampleBufferDisplayLayer = AVSampleBufferDisplayLayer()
 struct PiPContainer: UIViewRepresentable {
-  @EnvironmentObject var pip: PiP
+  @ObservedObject var pip: PiP
 
   func makeUIView(context: Context)  -> UIView {
     let container = UIView(frame: .init(origin: .zero, size: pip.size))

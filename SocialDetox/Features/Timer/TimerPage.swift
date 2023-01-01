@@ -1,25 +1,30 @@
 import SwiftUI
 
 struct TimerPage: View {
-  enum Context {
-    case sns
-    case video
-    case message
-  }
-
   @Environment(\.displayScale) var displayScale
   @StateObject var pip = PiP()
   @StateObject var deadline = Deadline()
   @Clock var clock
 
-  let context: Context
+  let service: Service
 
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime.wrappedValue)
 
     VStack {
       if pip.canStart {
-        PiPContainer()
+        Image(service.iconName)
+          .resizable()
+          .scaledToFill()
+          .frame(width: 60, height: 60)
+          .background(service.iconBackgroundColor)
+          .cornerRadius(4)
+
+        VStack(alignment: .leading) {
+          Text(service.name)
+        }
+
+        PiPContainer(pip: pip)
           .onChange(of: clock.now) { _ in
             switch pip.progress {
             case .willStart, .didStart:
@@ -50,6 +55,10 @@ struct TimerPage: View {
         } else {
           Button {
             pip.start()
+            
+            if let url = URL(string: service.urlScheme) {
+              UIApplication.shared.open(url)
+            }
           } label: {
             Image(systemName: "play.fill")
               .imageScale(.large)
@@ -66,7 +75,7 @@ struct TimerPage: View {
   }
 
   var remainingTime: Binding<Int> {
-    switch context {
+    switch service.category {
     case .sns:
       return $deadline.remainingSNSTime
     case .video:
@@ -79,7 +88,7 @@ struct TimerPage: View {
 
 struct TimerPage_Previews: PreviewProvider {
   static var previews: some View {
-    TimerPage(context: .sns)
+    TimerPage(service: .twitter)
   }
 }
 
