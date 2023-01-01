@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Countdown: View {
-  let remainingTime: TimeInterval?
+  let remainingTime: Int?
 
   var body: some View {
     let components = timeComponents()
@@ -22,9 +22,10 @@ struct Countdown: View {
       return nil
     }
 
-    let second = Int(remainingTime.truncatingRemainder(dividingBy: 60))
-    let minute = Int((remainingTime / 60).truncatingRemainder(dividingBy: 60))
-    let hour = Int(remainingTime / (60 * 60))
+    let _remainingTime = TimeInterval(remainingTime)
+    let second = Int(_remainingTime.truncatingRemainder(dividingBy: 60))
+    let minute = Int((_remainingTime / 60).truncatingRemainder(dividingBy: 60))
+    let hour = Int(_remainingTime / (60 * 60))
     return (hour, minute, second)
   }
 

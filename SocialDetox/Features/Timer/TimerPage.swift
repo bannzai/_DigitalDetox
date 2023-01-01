@@ -4,17 +4,22 @@ struct TimerPage: View {
   @Environment(\.displayScale) var displayScale
   @EnvironmentObject var pip: PiP
   @Clock var clock
-  @State var remainingTime: TimeInterval? = 1 * 30
+  @State var remainingTime: Int
+
+  init(hour: Int, minute: Int) {
+    remainingTime = hour * (60 * 60) + minute * (60)
+  }
 
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime)
+
     VStack {
       if pip.canStart {
         PiPContainer()
           .onChange(of: clock.now) { _ in
             switch pip.progress {
             case .willStart, .didStart:
-              if let remainingTime, remainingTime > 0 {
+              if remainingTime > 0 {
                 self.remainingTime = remainingTime - 1
               }
             case nil, .willStop, .didStop:
@@ -24,7 +29,7 @@ struct TimerPage: View {
             pip.enqueue(content: countdown, displayScale: displayScale)
           }
           .onChange(of: remainingTime, perform: { remainingTime in
-            guard let remainingTime, remainingTime <= 0 else {
+            guard remainingTime <= 0 else {
               return
             }
             print(remainingTime)
@@ -57,7 +62,7 @@ struct TimerPage: View {
 
 struct TimerPage_Previews: PreviewProvider {
   static var previews: some View {
-    TimerPage()
+    TimerPage(hour: 0, minute: 30)
   }
 }
 

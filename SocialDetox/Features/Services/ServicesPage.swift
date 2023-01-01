@@ -109,33 +109,35 @@ struct ServiceView: View {
   let minute: Int
 
   var body: some View {
-    Button {
-      if let url = URL(string: service.urlScheme) {
-        UIApplication.shared.open(url)
-      }
-    } label: {
-      HStack(spacing: 16) {
-        Image(service.iconName)
-          .resizable()
-          .scaledToFill()
-          .frame(width: 32, height: 32)
-          .background(service.iconBackgroundColor)
-          .cornerRadius(4)
-
-        VStack(alignment: .leading) {
-          Text(service.name)
+    ZStack {
+      Button {
+        if let url = URL(string: service.urlScheme) {
+          UIApplication.shared.open(url)
         }
+      } label: {
+        HStack(spacing: 16) {
+          Image(service.iconName)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 32, height: 32)
+            .background(service.iconBackgroundColor)
+            .cornerRadius(4)
 
-        Spacer()
-        HStack {
-          Text("Start")
-            .foregroundColor(.init(uiColor: .systemMint))
+          VStack(alignment: .leading) {
+            Text(service.name)
+          }
 
-          Image(systemName: "chevron.right")
+          Spacer()
+          HStack {
+            Text("Start")
+              .foregroundColor(.init(uiColor: .systemMint))
+
+            Image(systemName: "chevron.right")
+          }
         }
       }
+      .buttonStyle(.plain)
     }
-    .buttonStyle(.plain)
   }
 }
 
