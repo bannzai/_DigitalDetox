@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class LimitTimer: ObservableObject {
+final class LimitTimer: ObservableObject, Codable {
   @Published var lastStartDateTimestamp = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: .now).date!.timeIntervalSince1970
   @Published var remainingSNSTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
@@ -12,12 +12,8 @@ final class LimitTimer: ObservableObject {
     case remainingVideoTime
     case remainingMessageTime
   }
-}
 
-extension LimitTimer: Codable {
-  convenience init(from decoder: Decoder) throws {
-    self.init()
-    
+  init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     lastStartDateTimestamp = try container.decode(TimeInterval.self, forKey: .lastStartDateTimestamp)
     remainingSNSTime = try container.decode(Int.self, forKey: .remainingSNSTime)
@@ -31,5 +27,4 @@ extension LimitTimer: Codable {
     try container.encode(remainingVideoTime, forKey: .remainingVideoTime)
     try container.encode(remainingMessageTime, forKey: .remainingMessageTime)
   }
-
 }
