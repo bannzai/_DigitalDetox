@@ -6,7 +6,8 @@ final class Deadline: ObservableObject, Codable {
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingMessageTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
 
-  init() { }
+  static let shared = Deadline()
+  private init() { }
 
   // MARK: - Codable
   enum CodingKeys: String, CodingKey {

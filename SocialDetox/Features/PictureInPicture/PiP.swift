@@ -20,7 +20,9 @@ class PiP: NSObject, ObservableObject {
   private var pictureInPictureController: AVPictureInPictureController!
   private var canceller: Set<AnyCancellable> = []
 
-  override init() {
+  static let shared = PiP()
+
+  private override init() {
     super.init()
 
     // NOTE: AVAudioSession should prepare to use pictureInPictureController all functions

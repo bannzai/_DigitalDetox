@@ -2,8 +2,8 @@ import SwiftUI
 
 struct TimerPage: View {
   @Environment(\.displayScale) var displayScale
-  @StateObject var pip = PiP()
-  @StateObject var deadline = Deadline()
+  @StateObject var pip = PiP.shared
+  @StateObject var deadline = Deadline.shared
   @Clock var clock
 
   let service: Service
