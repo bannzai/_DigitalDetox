@@ -1,36 +1,29 @@
 import SwiftUI
 
 struct ServicesPage: View {
-  @AppStorage(.snsHour) private var snsHour: Int = .defaultHour
-  @AppStorage(.snsMinute) private var snsMinute: Int = .defaultMinute
-  @AppStorage(.videoHour) private var videoHour: Int = .defaultHour
-  @AppStorage(.videoMinute) private var videoMinute: Int = .defaultMinute
-  @AppStorage(.messageHour) private var messageHour: Int = .defaultHour
-  @AppStorage(.messageMinute) private var messageMinute: Int = .defaultMinute
-
   var body: some View {
     List {
       Section {
-        ServiceView(service: .twitter, hour: snsHour, minute: snsMinute)
-        ServiceView(service: .facebook, hour: snsHour, minute: snsMinute)
-        ServiceView(service: .instagram, hour: snsHour, minute: snsMinute)
-        ServiceView(service: .snapchat, hour: snsHour, minute: snsMinute)
+        ServiceView(service: .twitter)
+        ServiceView(service: .facebook)
+        ServiceView(service: .instagram)
+        ServiceView(service: .snapchat)
       } header: {
         Text("SNS")
           .textCase(nil)
       }
 
       Section {
-        ServiceView(service: .youtube, hour: videoHour, minute: videoMinute)
-        ServiceView(service: .netflix, hour: videoHour, minute: videoMinute)
+        ServiceView(service: .youtube)
+        ServiceView(service: .netflix)
       } header: {
         Text("Video")
           .textCase(nil)
       }
 
       Section {
-        ServiceView(service: .slack, hour: messageHour, minute: messageMinute)
-        ServiceView(service: .discord, hour: messageHour, minute: messageMinute)
+        ServiceView(service: .slack)
+        ServiceView(service: .discord)
       } header: {
         Text("Message")
           .textCase(nil)
@@ -105,8 +98,6 @@ enum Service: Int, Identifiable, CaseIterable {
 
 struct ServiceView: View {
   let service: Service
-  let hour: Int
-  let minute: Int
 
   var body: some View {
     ZStack {
