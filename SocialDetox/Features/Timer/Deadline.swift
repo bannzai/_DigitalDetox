@@ -1,19 +1,20 @@
 import SwiftUI
 
-final class LimitTimer: ObservableObject, Codable {
+final class Deadline: ObservableObject, Codable {
   @Published var lastRecordDateTimestamp = Calendar.autoupdatingCurrent.dateComponents([.year, .month, .day], from: .now).date!.timeIntervalSince1970
   @Published var remainingSNSTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingMessageTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
 
+  init() { }
+
+  // MARK: - Codable
   enum CodingKeys: String, CodingKey {
     case lastRecordDateTimestamp
     case remainingSNSTime
     case remainingVideoTime
     case remainingMessageTime
   }
-
-  // MARK: - Codable
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     lastRecordDateTimestamp = try container.decode(TimeInterval.self, forKey: .lastRecordDateTimestamp)

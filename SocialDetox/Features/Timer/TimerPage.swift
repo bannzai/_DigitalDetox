@@ -2,7 +2,9 @@ import SwiftUI
 
 struct TimerPage: View {
   @Environment(\.displayScale) var displayScale
-  @EnvironmentObject var pip: PiP
+  @StateObject var pip = PiP()
+  @StateObject var deadline = Deadline()
+
   @Clock var clock
   @State var remainingTime: Int
 
