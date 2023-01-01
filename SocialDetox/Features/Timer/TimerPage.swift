@@ -1,18 +1,21 @@
 import SwiftUI
 
 struct TimerPage: View {
+  enum Context {
+    case sns
+    case video
+    case message
+  }
+
   @Environment(\.displayScale) var displayScale
   @StateObject var pip = PiP()
   @StateObject var deadline = Deadline()
   @Clock var clock
-  @State var remainingTime: Int
 
-  init(hour: Int, minute: Int) {
-    remainingTime = .remainingTime(hour: hour, minute: minute)
-  }
+  let context: Context
 
   var body: some View {
-    let countdown = Countdown(remainingTime: remainingTime)
+    let countdown = Countdown(remainingTime: remainingTime.wrappedValue)
 
     VStack {
       if pip.canStart {
@@ -20,8 +23,8 @@ struct TimerPage: View {
           .onChange(of: clock.now) { _ in
             switch pip.progress {
             case .willStart, .didStart:
-              if remainingTime > 0 {
-                self.remainingTime = remainingTime - 1
+              if remainingTime.wrappedValue > 0 {
+                self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
               }
             case nil, .willStop, .didStop:
               break
@@ -29,7 +32,7 @@ struct TimerPage: View {
 
             pip.enqueue(content: countdown, displayScale: displayScale)
           }
-          .onChange(of: remainingTime, perform: { remainingTime in
+          .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
             guard remainingTime <= 0 else {
               return
             }
@@ -59,11 +62,22 @@ struct TimerPage: View {
       }
     }
   }
+
+  var remainingTime: Binding<Int> {
+    switch context {
+    case .sns:
+      return $deadline.remainingSNSTime
+    case .video:
+      return $deadline.remainingVideoTime
+    case .message:
+      return $deadline.remainingMessageTime
+    }
+  }
 }
 
 struct TimerPage_Previews: PreviewProvider {
   static var previews: some View {
-    TimerPage(hour: 0, minute: 30)
+    TimerPage(context: .sns)
   }
 }
 
