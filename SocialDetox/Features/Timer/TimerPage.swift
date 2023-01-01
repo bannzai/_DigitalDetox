@@ -27,11 +27,11 @@ struct TimerPage: View {
         PiPContainer(pip: pip)
           .onChange(of: clock.now) { _ in
             switch pip.progress {
-            case .willStart, .didStart:
+            case .didStart:
               if remainingTime.wrappedValue > 0 {
                 self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
               }
-            case nil, .willStop, .didStop:
+            case nil, .willStart, .willStop, .didStop:
               return
             }
           }
@@ -42,28 +42,45 @@ struct TimerPage: View {
               // TODO: Reach deadline
             }
           })
-          .frame(width: pip.size.width, height: pip.size.height)
-          .alert(error: $pip.launchError)
+          .onChange(of: pip.progress, perform: { progress in
+            guard case .didStart = progress else {
+              return
+            }
 
-        if pip.isActivated {
-          Button {
-            pip.stop()
-          } label: {
-            Image(systemName: "stop.fill")
-              .imageScale(.large)
-              .foregroundColor(.accentColor)
-          }
-        } else {
-          Button {
-            pip.start()
-            
             if let url = URL(string: service.urlScheme) {
               UIApplication.shared.open(url)
             }
-          } label: {
-            Image(systemName: "play.fill")
-              .imageScale(.large)
-              .foregroundColor(.accentColor)
+          })
+          .frame(width: pip.size.width, height: pip.size.height)
+          .alert(error: $pip.launchError)
+
+        // Button
+        Group {
+          if case .willStart = pip.progress {
+            Button {
+
+            } label: {
+              ProgressView()
+            }
+            .disabled(true)
+          } else {
+            if pip.isActivated {
+              Button {
+                pip.stop()
+              } label: {
+                Image(systemName: "stop.fill")
+                  .imageScale(.large)
+                  .foregroundColor(.accentColor)
+              }
+            } else {
+              Button {
+                pip.start()
+              } label: {
+                Image(systemName: "play.fill")
+                  .imageScale(.large)
+                  .foregroundColor(.accentColor)
+              }
+            }
           }
         }
       } else {
@@ -72,6 +89,8 @@ struct TimerPage: View {
     }
     .onAppear {
       deadline.resetIfNeeded()
+      // Prevent empty queue before start picture in picture
+      pip.enqueue(content: countdown, displayScale: displayScale)
     }
   }
 
