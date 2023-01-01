@@ -18,7 +18,7 @@
 		2063FB24295F124A00C7BFC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2063FB26295F124A00C7BFC9 /* Localizable.strings */; };
 		2063FB29295F164600C7BFC9 /* ServicesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB28295F164600C7BFC9 /* ServicesPage.swift */; };
 		2063FB2C295FE19100C7BFC9 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB2B295FE19100C7BFC9 /* SettingPage.swift */; };
-		2063FB2E295FE6E800C7BFC9 /* SettingTimeLimitSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB2D295FE6E800C7BFC9 /* SettingTimeLimitSection.swift */; };
+		2063FB2E295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB2D295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift */; };
 		2063FB4C29608E5700C7BFC9 /* AppStorage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB4B29608E5700C7BFC9 /* AppStorage+.swift */; };
 		2063FB4E2960909600C7BFC9 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB4D2960909600C7BFC9 /* Int+.swift */; };
 		20B63F80296146A2008F5295 /* Deadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F7F296146A2008F5295 /* Deadline.swift */; };
@@ -49,7 +49,7 @@
 		2063FB25295F124A00C7BFC9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2063FB28295F164600C7BFC9 /* ServicesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesPage.swift; sourceTree = "<group>"; };
 		2063FB2B295FE19100C7BFC9 /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
-		2063FB2D295FE6E800C7BFC9 /* SettingTimeLimitSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTimeLimitSection.swift; sourceTree = "<group>"; };
+		2063FB2D295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTimeDeadlineSection.swift; sourceTree = "<group>"; };
 		2063FB4B29608E5700C7BFC9 /* AppStorage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStorage+.swift"; sourceTree = "<group>"; };
 		2063FB4D2960909600C7BFC9 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		20B63F7F296146A2008F5295 /* Deadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deadline.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				2063FB2B295FE19100C7BFC9 /* SettingPage.swift */,
-				2063FB2D295FE6E800C7BFC9 /* SettingTimeLimitSection.swift */,
+				2063FB2D295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2063FB1F295F10C600C7BFC9 /* TimerPage.swift in Sources */,
-				2063FB2E295FE6E800C7BFC9 /* SettingTimeLimitSection.swift in Sources */,
+				2063FB2E295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift in Sources */,
 				2063FB4E2960909600C7BFC9 /* Int+.swift in Sources */,
 				2063FB10295C76CA00C7BFC9 /* Render.swift in Sources */,
 				2063FB15295C895A00C7BFC9 /* UIImage+CoreMedia.swift in Sources */,

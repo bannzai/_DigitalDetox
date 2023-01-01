@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingPage: View {
   var body: some View {
     List {
-      SettingTimeLimitSection()
+      SettingTimeDeadlineSection()
     }
     .navigationBarTitleDisplayMode(.inline)
     .listStyle(.insetGrouped)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SettingTimeLimitSection: View {
+struct SettingTimeDeadlineSection: View {
   @AppStorage(.snsHour) private var snsHour: Int = .defaultHour
   @AppStorage(.snsMinute) private var snsMinute: Int = .defaultMinute
   @AppStorage(.videoHour) private var videoHour: Int = .defaultHour
@@ -106,12 +106,12 @@ struct SettingTimeLimitSection: View {
   }
 }
 
-struct SettingTimeLimitSection_Previews: PreviewProvider {
+struct SettingTimeDeadlineSection_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      SettingTimeLimitSection()
+      SettingTimeDeadlineSection()
         .environment(\.colorScheme, .light)
-      SettingTimeLimitSection()
+      SettingTimeDeadlineSection()
         .environment(\.colorScheme, .dark)
     }
   }
