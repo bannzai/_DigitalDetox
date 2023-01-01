@@ -23,6 +23,7 @@
 		2063FB4E2960909600C7BFC9 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2063FB4D2960909600C7BFC9 /* Int+.swift */; };
 		20B63F80296146A2008F5295 /* Deadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F7F296146A2008F5295 /* Deadline.swift */; };
 		20B63F8229617B65008F5295 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F8129617B65008F5295 /* Service.swift */; };
+		20B63F85296180D0008F5295 /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F84296180D0008F5295 /* AlertError.swift */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		2063FB4D2960909600C7BFC9 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 		20B63F7F296146A2008F5295 /* Deadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deadline.swift; sourceTree = "<group>"; };
 		20B63F8129617B65008F5295 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		20B63F84296180D0008F5295 /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		2063FB11295C7AE600C7BFC9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				20B63F83296180CB008F5295 /* Alert */,
 				2063FB17295C89A500C7BFC9 /* Extension */,
 				2063FB16295C899500C7BFC9 /* Modifier */,
 			);
@@ -172,6 +175,14 @@
 				2063FB2D295FE6E800C7BFC9 /* SettingTimeDeadlineSection.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		20B63F83296180CB008F5295 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				20B63F84296180D0008F5295 /* AlertError.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		20C83A60295878E800DDB450 = {
@@ -311,6 +322,7 @@
 				2063FB13295C7AF600C7BFC9 /* When.swift in Sources */,
 				2063FB1A295D875E00C7BFC9 /* PiP.swift in Sources */,
 				20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */,
+				20B63F85296180D0008F5295 /* AlertError.swift in Sources */,
 				20B63F8229617B65008F5295 /* Service.swift in Sources */,
 				2063FB1D295E80C400C7BFC9 /* Container.swift in Sources */,
 				2063FB0D295C6FAE00C7BFC9 /* Clock.swift in Sources */,

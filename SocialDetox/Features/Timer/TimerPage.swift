@@ -43,6 +43,7 @@ struct TimerPage: View {
             }
           })
           .frame(width: pip.size.width, height: pip.size.height)
+          .alert(error: $pip.launchError)
 
         if pip.isActivated {
           Button {
