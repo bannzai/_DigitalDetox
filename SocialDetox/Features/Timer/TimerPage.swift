@@ -27,16 +27,15 @@ struct TimerPage: View {
                 self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
               }
             case nil, .willStop, .didStop:
-              break
-            }
-
-            pip.enqueue(content: countdown, displayScale: displayScale)
-          }
-          .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
-            guard remainingTime <= 0 else {
               return
             }
-            print(remainingTime)
+          }
+          .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
+            if remainingTime >= 0 {
+              pip.enqueue(content: countdown, displayScale: displayScale)
+            } else {
+              // TODO: Reach deadline
+            }
           })
           .frame(width: pip.size.width, height: pip.size.height)
 
@@ -60,6 +59,9 @@ struct TimerPage: View {
       } else {
         ProgressView()
       }
+    }
+    .onAppear {
+      deadline.resetIfNeeded()
     }
   }
 
