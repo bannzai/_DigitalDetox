@@ -26,6 +26,9 @@ struct TimerPage: View {
 
         PiPContainer(pip: pip)
           .onChange(of: clock.now) { _ in
+            // Keep enqueue content. If stop pip and queue is empty, PiPContainer is blank.
+            pip.enqueue(content: countdown, displayScale: displayScale)
+
             switch pip.progress {
             case .didStart:
               if remainingTime.wrappedValue > 0 {
@@ -36,9 +39,7 @@ struct TimerPage: View {
             }
           }
           .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
-            if remainingTime >= 0 {
-              pip.enqueue(content: countdown, displayScale: displayScale)
-            } else {
+            if remainingTime <= 0 {
               // TODO: Reach deadline
             }
           })
@@ -89,8 +90,6 @@ struct TimerPage: View {
     }
     .onAppear {
       deadline.resetIfNeeded()
-      // Prevent empty queue before start picture in picture
-      pip.enqueue(content: countdown, displayScale: displayScale)
     }
   }
 
