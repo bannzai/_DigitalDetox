@@ -15,6 +15,7 @@ class PiP: NSObject, ObservableObject {
   @Published var progress: Progress?
   @Published var launchError: Error?
   @Published var size: CGSize = .init(width: UIScreen.main.bounds.width, height: 120)
+  @Published var isPlaying = false
   var isActivated: Bool { pictureInPictureController.isPictureInPictureActive }
 
   private var pictureInPictureController: AVPictureInPictureController!
@@ -96,6 +97,7 @@ extension PiP: AVPictureInPictureControllerDelegate {
 
   func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
     progress = .didStart
+    isPlaying = true
   }
 
   func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, failedToStartPictureInPictureWithError error: Error) {
@@ -108,13 +110,17 @@ extension PiP: AVPictureInPictureControllerDelegate {
 
   func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVPictureInPictureController) {
     progress = .didStop
+    isPlaying = false
   }
 }
 
 
 extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   // NOTE: playing false means paused
-  func pictureInPictureController(_ : AVPictureInPictureController, setPlaying playing: Bool) {
+  func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, setPlaying playing: Bool) {
+    isPlaying = playing
+    // Force update play/paused button UI on picture in picture layer
+    pictureInPictureController.invalidatePlaybackState()
   }
 
   func pictureInPictureControllerTimeRangeForPlayback(_ pictureInPictureController: AVPictureInPictureController) -> CMTimeRange {
@@ -122,7 +128,16 @@ extension PiP: AVPictureInPictureSampleBufferPlaybackDelegate {
   }
 
   func pictureInPictureControllerIsPlaybackPaused(_ pictureInPictureController: AVPictureInPictureController) -> Bool {
-    true
+    switch progress {
+    case .willStart, .didStart:
+      return !isPlaying
+    case .willStop, .didStop:
+      return true
+    case nil:
+      // On iOS, as soon as I instantiate AVPictureInPictureController(contentSource: contentSource) I am receiving delegate callbacks to the AVPictureInPictureSampleBufferPlaybackDelegate methods:
+      // https://github.com/jazzychad/PiPBugDemo
+      return false
+    }
   }
 
   func pictureInPictureController(_ pictureInPictureController: AVPictureInPictureController, didTransitionToRenderSize newRenderSize: CMVideoDimensions) {

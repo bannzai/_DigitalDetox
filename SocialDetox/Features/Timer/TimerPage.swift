@@ -31,7 +31,7 @@ struct TimerPage: View {
 
             switch pip.progress {
             case .didStart:
-              if remainingTime.wrappedValue > 0 {
+              if pip.isPlaying, remainingTime.wrappedValue > 0 {
                 self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
               }
             case nil, .willStart, .willStop, .didStop:
