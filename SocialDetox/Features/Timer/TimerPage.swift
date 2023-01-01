@@ -11,7 +11,7 @@ struct TimerPage: View {
   var body: some View {
     let countdown = Countdown(remainingTime: remainingTime.wrappedValue)
 
-    VStack {
+    VStack(spacing: 10) {
       if pip.canStart {
         Image(service.iconName)
           .resizable()
@@ -26,7 +26,7 @@ struct TimerPage: View {
 
         PiPContainer(pip: pip)
           .onChange(of: clock.now) { _ in
-            // Keep enqueue content. If stop pip and queue is empty, PiPContainer is blank.
+            // Keep enqueue content every time. If stop picture in picture and queue is empty, PiPContainer is blank.
             pip.enqueue(content: countdown, displayScale: displayScale)
 
             switch pip.progress {
