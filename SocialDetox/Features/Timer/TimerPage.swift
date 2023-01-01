@@ -4,7 +4,6 @@ struct TimerPage: View {
   @Environment(\.displayScale) var displayScale
   @StateObject var pip = PiP()
   @StateObject var deadline = Deadline()
-
   @Clock var clock
   @State var remainingTime: Int
 
