@@ -1,34 +1,23 @@
 import SwiftUI
+import Combine
 
-final class Deadline: ObservableObject, Codable {
+final class Deadline: ObservableObject {
   @Published var lastRecordDateTimestamp = Calendar.autoupdatingCurrent.startOfDay(for: .now).timeIntervalSince1970
   @Published var remainingSNSTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingMessageTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
 
-  static let shared = Deadline()
-  private init() { }
-
-  // MARK: - Codable
-  enum CodingKeys: String, CodingKey {
-    case lastRecordDateTimestamp
-    case remainingSNSTime
-    case remainingVideoTime
-    case remainingMessageTime
-  }
-  init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: CodingKeys.self)
-    lastRecordDateTimestamp = try container.decode(TimeInterval.self, forKey: .lastRecordDateTimestamp)
-    remainingSNSTime = try container.decode(Int.self, forKey: .remainingSNSTime)
-    remainingVideoTime = try container.decode(Int.self, forKey: .remainingVideoTime)
-    remainingMessageTime = try container.decode(Int.self, forKey: .remainingMessageTime)
-  }
-  func encode(to encoder: Encoder) throws {
-    var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(lastRecordDateTimestamp, forKey: .lastRecordDateTimestamp)
-    try container.encode(remainingSNSTime, forKey: .remainingSNSTime)
-    try container.encode(remainingVideoTime, forKey: .remainingVideoTime)
-    try container.encode(remainingMessageTime, forKey: .remainingMessageTime)
+  private var canceller: Set<AnyCancellable> = []
+  static private(set) var shared: Deadline = { UserDefaults.standard.deadline() ?? .init() }()
+  private init() {
+    [remainingSNSTime, remainingVideoTime, remainingMessageTime]
+      .publisher
+      .sink { [weak self] _ in
+        if let self {
+          UserDefaults.standard.set(deadline: self)
+        }
+      }
+      .store(in: &canceller)
   }
 
   // MARK: - Internal
@@ -55,6 +44,32 @@ final class Deadline: ObservableObject, Codable {
     } else {
       remainingMessageTime = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
     }
+  }
+}
+
+extension Deadline: Codable {
+  enum CodingKeys: String, CodingKey {
+    case lastRecordDateTimestamp
+    case remainingSNSTime
+    case remainingVideoTime
+    case remainingMessageTime
+  }
+
+  convenience init(from decoder: Decoder) throws {
+    self.init()
+
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    lastRecordDateTimestamp = try container.decode(TimeInterval.self, forKey: .lastRecordDateTimestamp)
+    remainingSNSTime = try container.decode(Int.self, forKey: .remainingSNSTime)
+    remainingVideoTime = try container.decode(Int.self, forKey: .remainingVideoTime)
+    remainingMessageTime = try container.decode(Int.self, forKey: .remainingMessageTime)
+  }
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(lastRecordDateTimestamp, forKey: .lastRecordDateTimestamp)
+    try container.encode(remainingSNSTime, forKey: .remainingSNSTime)
+    try container.encode(remainingVideoTime, forKey: .remainingVideoTime)
+    try container.encode(remainingMessageTime, forKey: .remainingMessageTime)
   }
 }
 
