@@ -31,6 +31,7 @@ final class Deadline: ObservableObject, Codable {
     try container.encode(remainingMessageTime, forKey: .remainingMessageTime)
   }
 
+  // MARK: - Internal
   func resetIfNeeded() {
     let today = Calendar.autoupdatingCurrent.startOfDay(for: .now)
     if Calendar.autoupdatingCurrent.isDate(today, inSameDayAs: Date(timeIntervalSince1970: lastRecordDateTimestamp)) {

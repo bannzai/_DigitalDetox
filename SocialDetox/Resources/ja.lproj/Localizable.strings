@@ -1,7 +1,7 @@
 
 "Video" = "動画";
 "Message" = "チャット";
-"Unsupported device" = "このデバイスはサポートされていません";
+"Unsupported picture in picture device" = "このデバイスではピクチャインピクチャーはサポートされていません";
 "%s can't open from app" = "このアプリからは開くことができません";
 "Hour" = "時";
 "Minute" = "分";

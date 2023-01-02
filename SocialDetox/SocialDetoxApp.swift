@@ -13,11 +13,7 @@ import AVKit
 struct SocialDetoxApp: App {
   var body: some Scene {
         WindowGroup {
-          if AVPictureInPictureController.isPictureInPictureSupported() {
-            ContentView()
-          } else {
-            Text("Unsupported device")
-          }
+          ContentView()
         }
     }
 }
