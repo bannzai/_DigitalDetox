@@ -8,7 +8,7 @@ struct TimerPage: View {
 
   var body: some View {
     if !AVPictureInPictureController.isPictureInPictureSupported() {
-      UnsupportedPiPBody(remainingTime: remainingTime)
+      UnsupportedPiPBody(service: service, remainingTime: remainingTime)
     } else {
       PictureInPictureBody(service: service, deadline: deadline, remainingTime: remainingTime)
     }
@@ -26,14 +26,50 @@ struct TimerPage: View {
   }
 
   struct UnsupportedPiPBody: View {
+    @Clock var clock
+    @State var isRunning = false
+
+    let service: Service
     let remainingTime: Binding<Int>
 
     var body: some View {
       VStack(spacing: 10) {
         Countdown(remainingTime: remainingTime.wrappedValue)
 
+        if isRunning {
+          Button {
+            isRunning = false
+          } label: {
+            Image(systemName: "stop.fill")
+              .imageScale(.large)
+              .foregroundColor(.accentColor)
+          }
+        } else {
+          Button {
+            isRunning = true
+
+            if let url = URL(string: service.urlScheme) {
+              UIApplication.shared.open(url)
+            }
+          } label: {
+            Image(systemName: "play.fill")
+              .imageScale(.large)
+              .foregroundColor(.accentColor)
+          }
+        }
+
         Text("Unsupported picture in picture device")
       }
+      .onChange(of: clock.now) { _ in
+        if isRunning, remainingTime.wrappedValue > 0 {
+          self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
+        }
+      }
+      .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
+        if remainingTime <= 0 {
+          // TODO: Reach deadline
+        }
+      })
     }
   }
 
