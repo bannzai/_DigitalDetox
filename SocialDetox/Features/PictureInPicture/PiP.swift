@@ -26,7 +26,7 @@ class PiP: NSObject, ObservableObject {
   private override init() {
     super.init()
 
-    // NOTE: AVAudioSession should prepare to use pictureInPictureController all functions
+    // NOTE: AVAudioSession should prepare before to use pictureInPictureController all functions
     do {
       try AVAudioSession.sharedInstance().setCategory(.playback)
       try AVAudioSession.sharedInstance().setActive(true)
