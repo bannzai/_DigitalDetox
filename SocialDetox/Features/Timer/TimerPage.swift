@@ -8,9 +8,9 @@ struct TimerPage: View {
 
   var body: some View {
     if !AVPictureInPictureController.isPictureInPictureSupported() {
-      UnsupportedPiPBody(service: service, remainingTime: remainingTime)
+      UnsupportedPiPBody(service: service, remainingTime: deadline.remainingTime(for: service.category))
     } else {
-      PictureInPictureBody(service: service, deadline: deadline, remainingTime: remainingTime)
+      PictureInPictureBody(service: service, deadline: deadline, remainingTime: deadline.remainingTime(for: service.category))
     }
   }
   // FIXME:: Why canOpenURL return false when pass custom schema URL
@@ -19,27 +19,16 @@ struct TimerPage: View {
   //      Text("Can't open \(service.name) app. Please confirm of app is installed")
   //    }
 
-  var remainingTime: Binding<Int> {
-    switch service.category {
-    case .sns:
-      return $deadline.remainingSNSTime
-    case .video:
-      return $deadline.remainingVideoTime
-    case .message:
-      return $deadline.remainingMessageTime
-    }
-  }
-
   struct UnsupportedPiPBody: View {
     @Clock var clock
     @State var isRunning = false
 
     let service: Service
-    let remainingTime: Binding<Int>
+    @Binding var remainingTime: Int
 
     var body: some View {
       VStack(spacing: 10) {
-        Countdown(remainingTime: remainingTime.wrappedValue)
+        Countdown(remainingTime: remainingTime)
 
         if isRunning {
           Button {
@@ -66,11 +55,11 @@ struct TimerPage: View {
         Text("Unsupported picture in picture device")
       }
       .onChange(of: clock.now) { _ in
-        if isRunning, remainingTime.wrappedValue > 0 {
-          self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
+        if isRunning, remainingTime > 0 {
+          remainingTime = remainingTime - 1
         }
       }
-      .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
+      .onChange(of: remainingTime, perform: { remainingTime in
         if remainingTime <= 0 {
           // TODO: Reach deadline
         }
@@ -85,7 +74,7 @@ struct TimerPage: View {
 
     let service: Service
     @ObservedObject var deadline: Deadline
-    let remainingTime: Binding<Int>
+    @Binding var remainingTime: Int
 
     var body: some View {
       VStack(spacing: 10) {
@@ -104,18 +93,18 @@ struct TimerPage: View {
           PiPContainer(pip: pip)
             .onChange(of: clock.now) { _ in
               // Keep enqueue content every time. If stop picture in picture and queue is empty, PiPContainer is blank.
-              pip.enqueue(content: Countdown(remainingTime: remainingTime.wrappedValue), displayScale: displayScale)
+              pip.enqueue(content: Countdown(remainingTime: remainingTime), displayScale: displayScale)
 
               switch pip.progress {
               case .didStart:
-                if pip.isPlaying, remainingTime.wrappedValue > 0 {
-                  self.remainingTime.wrappedValue = remainingTime.wrappedValue - 1
+                if pip.isPlaying, remainingTime > 0 {
+                  remainingTime = remainingTime - 1
                 }
               case nil, .willStart, .willStop, .didStop:
                 return
               }
             }
-            .onChange(of: remainingTime.wrappedValue, perform: { remainingTime in
+            .onChange(of: remainingTime, perform: { remainingTime in
               if remainingTime <= 0 {
                 // TODO: Reach deadline
               }

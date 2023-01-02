@@ -7,20 +7,32 @@ final class Deadline: ObservableObject {
   @Published var remainingVideoTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
   @Published var remainingMessageTime: Int = .remainingTime(hour: .defaultHour, minute: .defaultMinute)
 
-  private var canceller: Set<AnyCancellable> = []
   static private(set) var shared: Deadline = { UserDefaults.standard.deadline() ?? .init() }()
-  private init() {
-    [remainingSNSTime, remainingVideoTime, remainingMessageTime]
-      .publisher
-      .sink { [weak self] _ in
-        if let self {
-          UserDefaults.standard.set(deadline: self)
-        }
-      }
-      .store(in: &canceller)
-  }
 
   // MARK: - Internal
+  func remainingTime(for category: Service.Category) -> Binding<Int> {
+    .init {
+      switch category {
+      case .sns:
+        return self.remainingSNSTime
+      case .video:
+        return self.remainingVideoTime
+      case .message:
+        return self.remainingMessageTime
+      }
+    } set: {
+      switch category {
+      case .sns:
+        self.remainingSNSTime = $0
+      case .video:
+        self.remainingVideoTime = $0
+      case .message:
+        self.remainingMessageTime = $0
+      }
+
+      UserDefaults.standard.set(deadline: self)
+    }
+  }
   func resetIfNeeded() {
     let today = Calendar.autoupdatingCurrent.startOfDay(for: .now)
     if Calendar.autoupdatingCurrent.isDate(today, inSameDayAs: Date(timeIntervalSince1970: lastRecordDateTimestamp)) {
