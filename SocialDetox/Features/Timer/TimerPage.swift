@@ -7,16 +7,17 @@ struct TimerPage: View {
   let service: Service
 
   var body: some View {
-    if let url = URL(string: service.urlScheme), UIApplication.shared.canOpenURL(url) {
-      if !AVPictureInPictureController.isPictureInPictureSupported() {
-        UnsupportedPiPBody(service: service, remainingTime: remainingTime)
-      } else {
-        PictureInPictureBody(service: service, deadline: deadline, remainingTime: remainingTime)
-      }
+    if !AVPictureInPictureController.isPictureInPictureSupported() {
+      UnsupportedPiPBody(service: service, remainingTime: remainingTime)
     } else {
-      Text("Can't open \(service.name) app. Please confirm of app is installed")
+      PictureInPictureBody(service: service, deadline: deadline, remainingTime: remainingTime)
     }
   }
+  // FIXME:: Why canOpenURL return false when pass custom schema URL
+  //     if let url = URL(string: service.urlScheme), UIApplication.shared.canOpenURL(url) {
+  // } else {
+  //      Text("Can't open \(service.name) app. Please confirm of app is installed")
+  //    }
 
   var remainingTime: Binding<Int> {
     switch service.category {
