@@ -57,3 +57,18 @@ final class Deadline: ObservableObject, Codable {
     }
   }
 }
+
+private extension UserDefaults {
+  static let deadlineKey = "Object.Deadline"
+
+  func set(deadline: Deadline) {
+    let data = try? JSONEncoder().encode(deadline)
+    set(data, forKey: UserDefaults.deadlineKey)
+  }
+  func deadline() -> Deadline? {
+    guard let data = data(forKey: UserDefaults.deadlineKey) else {
+      return nil
+    }
+    return try? JSONDecoder().decode(Deadline.self, from: data)
+  }
+}
