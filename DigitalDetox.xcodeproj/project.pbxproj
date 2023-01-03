@@ -25,7 +25,7 @@
 		20B63F8229617B65008F5295 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F8129617B65008F5295 /* Service.swift */; };
 		20B63F85296180D0008F5295 /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F84296180D0008F5295 /* AlertError.swift */; };
 		20B63F882963C53A008F5295 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 20B63F872963C53A008F5295 /* RevenueCat */; };
-		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
+		20C83A6D295878E800DDB450 /* DigitalDetox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* DigitalDetox.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
 		20C83A74295878E900DDB450 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A73295878E900DDB450 /* Preview Assets.xcassets */; };
@@ -59,7 +59,7 @@
 		20B63F8129617B65008F5295 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		20B63F84296180D0008F5295 /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
 		20C83A69295878E800DDB450 /* DigitalDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigitalDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
+		20C83A6C295878E800DDB450 /* DigitalDetox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalDetox.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		20C83A70295878E900DDB450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20C83A73295878E900DDB450 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				2063FB1B295E5A8B00C7BFC9 /* Info.plist */,
 				2063FB11295C7AE600C7BFC9 /* Utils */,
 				2063FB07295C6F4000C7BFC9 /* Features */,
-				20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */,
+				20C83A6C295878E800DDB450 /* DigitalDetox.swift */,
 				20C83A6E295878E800DDB450 /* ContentView.swift */,
 				20C83A70295878E900DDB450 /* Assets.xcassets */,
 				20C83A72295878E900DDB450 /* Preview Content */,
@@ -325,7 +325,7 @@
 				20B63F80296146A2008F5295 /* Deadline.swift in Sources */,
 				2063FB13295C7AF600C7BFC9 /* When.swift in Sources */,
 				2063FB1A295D875E00C7BFC9 /* PiP.swift in Sources */,
-				20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */,
+				20C83A6D295878E800DDB450 /* DigitalDetox.swift in Sources */,
 				20B63F85296180D0008F5295 /* AlertError.swift in Sources */,
 				20B63F8229617B65008F5295 /* Service.swift in Sources */,
 				2063FB1D295E80C400C7BFC9 /* Container.swift in Sources */,
