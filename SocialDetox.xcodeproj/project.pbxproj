@@ -24,6 +24,7 @@
 		20B63F80296146A2008F5295 /* Deadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F7F296146A2008F5295 /* Deadline.swift */; };
 		20B63F8229617B65008F5295 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F8129617B65008F5295 /* Service.swift */; };
 		20B63F85296180D0008F5295 /* AlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B63F84296180D0008F5295 /* AlertError.swift */; };
+		20B63F882963C53A008F5295 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 20B63F872963C53A008F5295 /* RevenueCat */; };
 		20C83A6D295878E800DDB450 /* SocialDetoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */; };
 		20C83A6F295878E800DDB450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C83A6E295878E800DDB450 /* ContentView.swift */; };
 		20C83A71295878E900DDB450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20C83A70295878E900DDB450 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 				20C83A84295879C500DDB450 /* FirebaseCrashlytics in Frameworks */,
 				20C83A7C295879C500DDB450 /* FirebaseAnalytics in Frameworks */,
 				20C83A82295879C500DDB450 /* FirebaseAuthCombine-Community in Frameworks */,
+				20B63F882963C53A008F5295 /* RevenueCat in Frameworks */,
 				20C83A86295879C500DDB450 /* FirebaseFirestore in Frameworks */,
 				20C83A88295879C500DDB450 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				20C83A8A295879C500DDB450 /* FirebaseFirestoreSwift in Frameworks */,
@@ -251,6 +253,7 @@
 				20C83A85295879C500DDB450 /* FirebaseFirestore */,
 				20C83A87295879C500DDB450 /* FirebaseFirestoreCombine-Community */,
 				20C83A89295879C500DDB450 /* FirebaseFirestoreSwift */,
+				20B63F872963C53A008F5295 /* RevenueCat */,
 			);
 			productName = SocialDetox;
 			productReference = 20C83A69295878E800DDB450 /* SocialDetox.app */;
@@ -283,6 +286,7 @@
 			mainGroup = 20C83A60295878E800DDB450;
 			packageReferences = (
 				20C83A7A295879C500DDB450 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				20B63F862963C53A008F5295 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 20C83A6A295878E800DDB450 /* Products */;
 			projectDirPath = "";
@@ -544,6 +548,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		20B63F862963C53A008F5295 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		20C83A7A295879C500DDB450 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -555,6 +567,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		20B63F872963C53A008F5295 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20B63F862963C53A008F5295 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
 		20C83A7B295879C500DDB450 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20C83A7A295879C500DDB450 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
