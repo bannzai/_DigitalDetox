@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "20C83A68295878E800DDB450"
-               BuildableName = "SocialDetox.app"
-               BlueprintName = "SocialDetox"
-               ReferencedContainer = "container:SocialDetox.xcodeproj">
+               BuildableName = "DigitalDetox.app"
+               BlueprintName = "DigitalDetox"
+               ReferencedContainer = "container:DigitalDetox.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "20C83A68295878E800DDB450"
-            BuildableName = "SocialDetox.app"
-            BlueprintName = "SocialDetox"
-            ReferencedContainer = "container:SocialDetox.xcodeproj">
+            BuildableName = "DigitalDetox.app"
+            BlueprintName = "DigitalDetox"
+            ReferencedContainer = "container:DigitalDetox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "20C83A68295878E800DDB450"
-            BuildableName = "SocialDetox.app"
-            BlueprintName = "SocialDetox"
-            ReferencedContainer = "container:SocialDetox.xcodeproj">
+            BuildableName = "DigitalDetox.app"
+            BlueprintName = "DigitalDetox"
+            ReferencedContainer = "container:DigitalDetox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
