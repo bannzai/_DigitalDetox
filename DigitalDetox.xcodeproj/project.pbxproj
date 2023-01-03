@@ -190,7 +190,7 @@
 		20C83A60295878E800DDB450 = {
 			isa = PBXGroup;
 			children = (
-				20C83A6B295878E800DDB450 /* SocialDetox */,
+				20C83A6B295878E800DDB450 /* DigitalDetox */,
 				20C83A6A295878E800DDB450 /* Products */,
 			);
 			indentWidth = 2;
@@ -205,7 +205,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		20C83A6B295878E800DDB450 /* SocialDetox */ = {
+		20C83A6B295878E800DDB450 /* DigitalDetox */ = {
 			isa = PBXGroup;
 			children = (
 				2063FB20295F120A00C7BFC9 /* Resources */,
@@ -217,7 +217,7 @@
 				20C83A70295878E900DDB450 /* Assets.xcassets */,
 				20C83A72295878E900DDB450 /* Preview Content */,
 			);
-			path = SocialDetox;
+			path = DigitalDetox;
 			sourceTree = "<group>";
 		};
 		20C83A72295878E900DDB450 /* Preview Content */ = {
