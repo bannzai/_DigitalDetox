@@ -1,6 +1,6 @@
 //
-//  SocialDetoxApp.swift
-//  SocialDetox
+//  DigitalDetoxApp.swift
+//  DigitalDetox
 //
 //  Created by bannzai on 2022/12/25.
 //
@@ -10,7 +10,7 @@ import SwiftUI
 import AVKit
 
 @main
-struct SocialDetoxApp: App {
+struct DigitalDetoxApp: App {
   var body: some Scene {
         WindowGroup {
           ContentView()
