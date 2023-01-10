@@ -58,7 +58,7 @@
 		20B63F7F296146A2008F5295 /* Deadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deadline.swift; sourceTree = "<group>"; };
 		20B63F8129617B65008F5295 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		20B63F84296180D0008F5295 /* AlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertError.swift; sourceTree = "<group>"; };
-		20C83A69295878E800DDB450 /* DigitalDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigitalDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		20C83A69295878E800DDB450 /* SocialDetox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialDetox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20C83A6C295878E800DDB450 /* SocialDetoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialDetoxApp.swift; sourceTree = "<group>"; };
 		20C83A6E295878E800DDB450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		20C83A70295878E900DDB450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		20C83A6A295878E800DDB450 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				20C83A69295878E800DDB450 /* DigitalDetox.app */,
+				20C83A69295878E800DDB450 /* SocialDetox.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,9 +231,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		20C83A68295878E800DDB450 /* DigitalDetox */ = {
+		20C83A68295878E800DDB450 /* SocialDetox */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 20C83A77295878E900DDB450 /* Build configuration list for PBXNativeTarget "DigitalDetox" */;
+			buildConfigurationList = 20C83A77295878E900DDB450 /* Build configuration list for PBXNativeTarget "SocialDetox" */;
 			buildPhases = (
 				20C83A65295878E800DDB450 /* Sources */,
 				20C83A66295878E800DDB450 /* Frameworks */,
@@ -243,7 +243,7 @@
 			);
 			dependencies = (
 			);
-			name = DigitalDetox;
+			name = SocialDetox;
 			packageProductDependencies = (
 				20C83A7B295879C500DDB450 /* FirebaseAnalytics */,
 				20C83A7D295879C500DDB450 /* FirebaseAnalyticsSwift */,
@@ -256,7 +256,7 @@
 				20B63F872963C53A008F5295 /* RevenueCat */,
 			);
 			productName = SocialDetox;
-			productReference = 20C83A69295878E800DDB450 /* DigitalDetox.app */;
+			productReference = 20C83A69295878E800DDB450 /* SocialDetox.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -274,7 +274,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 20C83A64295878E800DDB450 /* Build configuration list for PBXProject "DigitalDetox" */;
+			buildConfigurationList = 20C83A64295878E800DDB450 /* Build configuration list for PBXProject "SocialDetox" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -292,7 +292,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				20C83A68295878E800DDB450 /* DigitalDetox */,
+				20C83A68295878E800DDB450 /* SocialDetox */,
 			);
 		};
 /* End PBXProject section */
@@ -527,7 +527,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		20C83A64295878E800DDB450 /* Build configuration list for PBXProject "DigitalDetox" */ = {
+		20C83A64295878E800DDB450 /* Build configuration list for PBXProject "SocialDetox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20C83A75295878E900DDB450 /* Debug */,
@@ -536,7 +536,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		20C83A77295878E900DDB450 /* Build configuration list for PBXNativeTarget "DigitalDetox" */ = {
+		20C83A77295878E900DDB450 /* Build configuration list for PBXNativeTarget "SocialDetox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				20C83A78295878E900DDB450 /* Debug */,
