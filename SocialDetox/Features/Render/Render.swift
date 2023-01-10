@@ -8,10 +8,10 @@ import SwiftUI
 
   let uiGraphicsImageRenderer = UIGraphicsImageRenderer(size: size)
   let image = uiGraphicsImageRenderer.image { context in
-    imageRenderer.render { _, uiGraphicsImageRenderer in
+    imageRenderer.render { _, renderer in
       let flipVerticalMatrix = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: size.height)
       context.cgContext.concatenate(flipVerticalMatrix)
-      uiGraphicsImageRenderer(context.cgContext)
+      renderer(context.cgContext)
     }
   }
 
